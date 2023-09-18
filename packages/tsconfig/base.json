@@ -9,6 +9,7 @@
         "forceConsistentCasingInFileNames": true,
         "inlineSources": false,
         "isolatedModules": true,
+        "module": "esnext",
         "moduleResolution": "node",
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": false,
@@ -16,7 +17,12 @@
         "preserveWatchOutput": true,
         "skipLibCheck": true,
         "strict": true,
-        "preserveSymlinks": true
+        "preserveSymlinks": true,
+        "allowJs": true,
+        "checkJs": true,
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "jsx": "preserve"
     },
     "exclude": ["node_modules"]
 }
