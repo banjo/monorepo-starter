@@ -1,0 +1,26 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "pipeline": {
+        "build": {
+            "dependsOn": ["^db:generate"],
+            "env": [
+                "DATABASE_URL",
+                "FIREBASE_ADMIN_KEY",
+                "CLIENT_URL",
+                "VITE_API_URL"
+            ],
+            "outputs": ["dist", ".vercel/**"]
+        },
+        "lint": {},
+        "dev": {
+            "dependsOn": ["^db:generate"],
+            "cache": false
+        },
+        "db:generate": {
+            "cache": false
+        },
+        "db:push": {
+            "cache": false
+        }
+    }
+}
