@@ -7,7 +7,7 @@ services:
         environment:
             POSTGRES_USER: banjo
             POSTGRES_PASSWORD: banjo
-            POSTGRES_DB: pkg-name
+            POSTGRES_DB: example-db
         ports:
             - "5432:5432"
         volumes:
