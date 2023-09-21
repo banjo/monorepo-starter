@@ -6,6 +6,7 @@ import { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "react-hot-toast";
 import { ErrorPage } from "ui";
+import "ui/src/tailwind.css";
 import "./index.css";
 
 export const App: FC = () => {
