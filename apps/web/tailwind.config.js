@@ -1,4 +1,4 @@
-const baseConfig = require("ui/tailwind.config");
+import baseConfig from "@pkg-name/tailwind-config";
 
 module.exports = {
     ...baseConfig,

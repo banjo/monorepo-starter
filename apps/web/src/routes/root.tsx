@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/auth-context";
+import { Home } from "@/pages/Home";
 import ErrorPage from "@/routes/error-page";
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
 
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <>Logged in first page</>,
+                element: <Home />,
             },
             {
                 path: "*",
@@ -44,11 +44,11 @@ const signedOutRouter = createBrowserRouter([
 ]);
 
 export function Root() {
-    const { userId } = useAuth();
+    // const { userId } = useAuth();
 
-    if (!userId) {
-        return <RouterProvider router={signedOutRouter} />;
-    }
+    // if (!userId) {
+    //     return <RouterProvider router={signedOutRouter} />;
+    // }
 
     return <RouterProvider router={router} />;
 }
