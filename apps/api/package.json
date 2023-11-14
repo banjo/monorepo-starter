@@ -18,7 +18,7 @@
         "@types/cors": "^2.8.14",
         "@types/express": "^4.17.17",
         "@types/morgan": "^1.9.5",
-        "db": "workspace:*",
+        "@pkg-name/db": "workspace:*",
         "firebase-server": "workspace:*",
         "server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",

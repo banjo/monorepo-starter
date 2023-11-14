@@ -42,7 +42,7 @@
         "@vitejs/plugin-react": "^4.0.4",
         "api": "workspace:*",
         "autoprefixer": "^10.4.15",
-        "db": "workspace:*",
+        "@pkg-name/db": "workspace:*",
         "eslint": "^8.49.0",
         "eslint-plugin-prettier": "^5.0.0",
         "eslint-plugin-react-hooks": "^4.6.0",

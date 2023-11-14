@@ -84,6 +84,9 @@ importers:
       '@banjoanton/utils':
         specifier: ^0.1.48
         version: 0.1.48
+      '@pkg-name/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@pkg-name/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
@@ -96,9 +99,6 @@ importers:
       '@types/morgan':
         specifier: ^1.9.5
         version: 1.9.5
-      db:
-        specifier: workspace:*
-        version: link:../../packages/db
       firebase-server:
         specifier: workspace:*
         version: link:../../packages/firebase-server
@@ -175,6 +175,9 @@ importers:
       '@banjoanton/utils':
         specifier: ^0.1.48
         version: 0.1.48
+      '@pkg-name/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@pkg-name/tailwind-config':
         specifier: workspace:*
         version: link:../../tooling/tailwind
@@ -211,9 +214,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.15
         version: 10.4.15(postcss@8.4.29)
-      db:
-        specifier: workspace:*
-        version: link:../../packages/db
       eslint:
         specifier: ^8.49.0
         version: 8.49.0
@@ -307,15 +307,15 @@ importers:
       '@banjoanton/utils':
         specifier: ^0.1.48
         version: 0.1.48
+      '@pkg-name/db':
+        specifier: workspace:*
+        version: link:../db
       '@pkg-name/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
       '@types/node':
         specifier: ^20.6.2
         version: 20.6.2
-      db:
-        specifier: workspace:*
-        version: link:../db
       firebase-server:
         specifier: workspace:*
         version: link:../firebase-server
