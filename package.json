@@ -27,6 +27,7 @@
         "@banjoanton/eslint-config": "^0.1.11",
         "@banjoanton/prettier-config": "^0.1.10",
         "@pkg-name/prettier-config": "workspace:*",
+        "@pkg-name/eslint-config": "workspace:*",
         "eslint": "^8.49.0",
         "eslint-plugin-prettier": "^5.0.1",
         "hoks": "^0.1.17",
@@ -38,5 +39,11 @@
         "zx": "^7.2.3"
     },
     "packageManager": "pnpm@8.6.3",
-    "prettier": "@pkg-name/prettier-config"
+    "prettier": "@pkg-name/prettier-config",
+    "eslintConfig": {
+        "root": true,
+        "extends": [
+            "@pkg-name/eslint-config/base"
+        ]
+    }
 }

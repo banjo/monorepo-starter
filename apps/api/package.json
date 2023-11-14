@@ -7,6 +7,7 @@
     "scripts": {
         "run": "tsx src/index.ts",
         "dev": "tsx watch src/index.ts",
+        "lint": "eslint . --ext .ts",
         "build": "tsup",
         "clean": "rimraf node_modules dist"
     },
@@ -15,15 +16,17 @@
     "license": "ISC",
     "devDependencies": {
         "@banjoanton/utils": "^0.1.48",
-        "@types/cors": "^2.8.14",
-        "@types/express": "^4.17.17",
-        "@types/morgan": "^1.9.5",
         "@pkg-name/db": "workspace:*",
         "@pkg-name/firebase-server": "workspace:*",
         "@pkg-name/server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
-        "tsx": "^3.12.10",
         "@pkg-name/utils": "workspace:*",
+        "@pkg-name/eslint-config": "workspace:*",
+        "@types/cors": "^2.8.14",
+        "@types/express": "^4.17.17",
+        "@types/morgan": "^1.9.5",
+        "tsup": "^7.2.0",
+        "tsx": "^3.12.10",
         "vitest": "^0.34.4"
     },
     "dependencies": {
@@ -35,8 +38,10 @@
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "firebase-admin": "^11.10.1",
-        "hono": "^3.6.3",
-        "svix": "^1.12.0",
         "zod": "^3.22.2"
+    },
+    "eslintConfig": {
+        "root":  true,
+        "extends":  "@pkg-name/eslint-config/base"
     }
 }

@@ -1,8 +1,9 @@
 import { auth } from "@/lib/firebase";
 import { isDev } from "@/utils/runtime";
 import { raise } from "@banjoanton/utils";
-import { GoogleAuthProvider, User, signInWithPopup } from "firebase/auth";
-import jwt_decode from "jwt-decode";
+import { GoogleAuthProvider, signInWithPopup, User } from "firebase/auth";
+
+import jwtDecode from "jwt-decode";
 import { createContext, useContext, useEffect, useState } from "react";
 
 export type AuthContextType = {
@@ -35,7 +36,7 @@ type AuthProviderProps = {
 
 export function AuthProvider({ children }: AuthProviderProps) {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string | undefined>(undefined);
+    const [token, setToken] = useState<string | undefined>();
     const [loading, setLoading] = useState(true);
 
     const signInWithGoogle = async () => {
@@ -69,10 +70,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 return;
             }
 
-            user.getIdToken().then(token => {
-                setToken(token);
-                setLoading(false);
-            });
+            user.getIdToken()
+                .then(token => {
+                    setToken(token);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error("Failed to get token", error);
+                    setLoading(false);
+                });
         });
 
         return unsubscribe;
@@ -91,8 +97,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                 if (isCancelled) return;
                 setToken(token);
 
-                const decodedToken: { exp: number } = jwt_decode(token);
-                const expirationTime = decodedToken.exp * 1000 - 60000;
+                const decodedToken: { exp: number } = jwtDecode(token);
+                const expirationTime = decodedToken.exp * 1000 - 60_000;
                 timeout = setTimeout(refresh, expirationTime - Date.now());
             } catch (error) {
                 // TODO: better refresh logic
