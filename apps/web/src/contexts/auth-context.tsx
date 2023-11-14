@@ -9,7 +9,7 @@ import {
     signOut,
 } from "firebase/auth";
 
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
 export type AuthContextType = {

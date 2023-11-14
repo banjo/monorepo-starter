@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "@banjoanton/prettier-config": "^0.1.10",
-        "prettier": "^3.0.3",
+        "prettier": "^3.1.0",
         "prettier-plugin-tailwindcss": "^0.5.7"
     }
 }

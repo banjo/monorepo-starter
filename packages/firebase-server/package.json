@@ -9,12 +9,12 @@
         "clean": "rimraf node_modules dist .turbo"
     },
     "devDependencies": {
-        "@banjoanton/utils": "^0.1.48",
-        "@types/node": "^20.6.2",
-        "@pkg-name/tsconfig": "workspace:*"
+        "@banjoanton/utils": "^0.1.56",
+        "@pkg-name/tsconfig": "workspace:*",
+        "@types/node": "^20.9.0"
     },
     "dependencies": {
         "dotenv": "^16.3.1",
-        "firebase-admin": "^11.10.1"
+        "firebase-admin": "^11.11.0"
     }
 }
