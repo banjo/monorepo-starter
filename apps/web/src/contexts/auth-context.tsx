@@ -1,11 +1,12 @@
 import { auth } from "@/lib/firebase";
-import { Maybe } from "@banjoanton/utils";
+import { isDev } from "@/utils/runtime";
+import { Maybe, raise } from "@banjoanton/utils";
 import {
     GoogleAuthProvider,
+    User,
     onAuthStateChanged,
     signInWithPopup,
     signOut,
-    User,
 } from "firebase/auth";
 
 import jwtDecode from "jwt-decode";
@@ -93,7 +94,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         }
     }, [user]);
 
+    // Development mode without authentication
     useEffect(() => {
+        if (isDev()) {
+            const uid =
+                import.meta.env.VITE_DEVELOPMENT_UID ?? raise("VITE_DEVELOPMENT_UID not specified");
+
+            setUser({
+                uid,
+            } as User);
+            setToken("development");
+            setIsLoading(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isDev()) return;
+
         const unsubscribe = onAuthStateChanged(auth, async currentUser => {
             setUser(currentUser);
             if (currentUser) {
@@ -110,6 +127,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, [refreshToken]);
 
     useEffect(() => {
+        if (isDev()) return;
+
         if (!user) {
             setToken(undefined);
             initialLoadCompletedRef.current = false;

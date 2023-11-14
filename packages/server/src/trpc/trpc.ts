@@ -7,8 +7,8 @@
  * The pieces you will need to use are documented accordingly near the end
  */
 import { auth } from "@pkg-name/firebase-server";
-import { createLogger } from "@pkg-name/utils";
-import { initTRPC, TRPCError } from "@trpc/server";
+import { createLogger, getDevId, isDev } from "@pkg-name/utils";
+import { TRPCError, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import superjson from "superjson";
@@ -41,6 +41,10 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
             userId,
         };
     };
+
+    if (isDev()) {
+        return createResponse(getDevId());
+    }
 
     if (!authHeader) {
         logger.info("No auth header");
