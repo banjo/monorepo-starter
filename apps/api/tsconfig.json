@@ -5,6 +5,6 @@
         },
         "baseUrl": "./"
     },
-    "extends": "tsconfig/library.json",
+    "extends": "@pkg-name/tsconfig/library.json",
     "exclude": ["node_modules"]
 }

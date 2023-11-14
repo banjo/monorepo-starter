@@ -11,11 +11,10 @@
     "devDependencies": {
         "@banjoanton/utils": "^0.1.48",
         "@types/node": "^20.6.2",
-        "tsconfig": "workspace:*"
+        "@pkg-name/tsconfig": "workspace:*"
     },
     "dependencies": {
         "dotenv": "^16.3.1",
-        "firebase-admin": "^11.10.1",
-        "tsconfig": "workspace:*"
+        "firebase-admin": "^11.10.1"
     }
 }

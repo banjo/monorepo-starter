@@ -51,7 +51,7 @@
         "prettier": "^3.0.3",
         "server": "workspace:*",
         "tailwindcss": "^3.3.3",
-        "tsconfig": "workspace:*",
+        "@pkg-name/tsconfig": "workspace:*",
         "ui": "workspace:*",
         "vite": "^4.4.9",
         "vite-tsconfig-paths": "^4.2.1"

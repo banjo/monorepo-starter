@@ -27,6 +27,6 @@
     "devDependencies": {
         "@types/node": "^20.6.2",
         "prisma": "^5.3.1",
-        "tsconfig": "workspace:*"
+        "@pkg-name/tsconfig": "workspace:*"
     }
 }
