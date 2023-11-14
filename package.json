@@ -9,6 +9,7 @@
         "build": "turbo build",
         "web:build": "turbo build --filter web",
         "lint:all": "turbo lint",
+        "studio": "pnpm run --filter @pkg-name/db studio",
         "format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
         "db:build": "turbo build --filter @pkg-name/db",
         "db:local:start": "docker compose -f docker/docker-compose.yml up -d --remove-orphans",

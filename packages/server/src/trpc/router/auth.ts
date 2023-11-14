@@ -1,9 +1,9 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const authRouter = createTRPCRouter({
-    getId: publicProcedure.input(z.object({ slug: z.string() })).query(({ input, ctx }) => {
+    getId: protectedProcedure.input(z.object({ slug: z.string() })).query(({ input, ctx }) => {
         const { slug } = input;
         const externalId = ctx.userId;
 
