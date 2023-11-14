@@ -6,10 +6,10 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
+import { auth } from "@pkg-name/firebase-server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
-import { auth } from "firebase-server";
 import superjson from "superjson";
 import { createLogger } from "utils";
 import { ZodError } from "zod";

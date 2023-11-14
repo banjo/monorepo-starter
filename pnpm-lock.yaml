@@ -87,6 +87,9 @@ importers:
       '@pkg-name/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@pkg-name/firebase-server':
+        specifier: workspace:*
+        version: link:../../packages/firebase-server
       '@pkg-name/server':
         specifier: workspace:*
         version: link:../../packages/server
@@ -102,9 +105,6 @@ importers:
       '@types/morgan':
         specifier: ^1.9.5
         version: 1.9.5
-      firebase-server:
-        specifier: workspace:*
-        version: link:../../packages/firebase-server
       tsx:
         specifier: ^3.12.10
         version: 3.12.10
@@ -310,15 +310,15 @@ importers:
       '@pkg-name/db':
         specifier: workspace:*
         version: link:../db
+      '@pkg-name/firebase-server':
+        specifier: workspace:*
+        version: link:../firebase-server
       '@pkg-name/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
       '@types/node':
         specifier: ^20.6.2
         version: 20.6.2
-      firebase-server:
-        specifier: workspace:*
-        version: link:../firebase-server
       utils:
         specifier: workspace:*
         version: link:../utils

@@ -12,7 +12,7 @@
         "@banjoanton/utils": "^0.1.48",
         "@types/node": "^20.6.2",
         "@pkg-name/db": "workspace:*",
-        "firebase-server": "workspace:*",
+        "@pkg-name/firebase-server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
         "utils": "workspace:*"
     },
