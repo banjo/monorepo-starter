@@ -20,7 +20,7 @@
         "@types/morgan": "^1.9.5",
         "@pkg-name/db": "workspace:*",
         "firebase-server": "workspace:*",
-        "server": "workspace:*",
+        "@pkg-name/server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
         "tsx": "^3.12.10",
         "utils": "workspace:*",

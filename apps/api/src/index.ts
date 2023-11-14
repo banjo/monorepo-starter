@@ -1,9 +1,9 @@
 import { getUrl } from "@app/utils";
+import { appRouter, createTRPCContext } from "@pkg-name/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import "dotenv/config";
 import express from "express";
-import { appRouter, createTRPCContext } from "server";
 
 const app = express();
 const url = getUrl();

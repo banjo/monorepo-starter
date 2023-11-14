@@ -49,7 +49,7 @@
         "eslint-plugin-react-refresh": "^0.4.3",
         "postcss": "^8.4.29",
         "prettier": "^3.0.3",
-        "server": "workspace:*",
+        "@pkg-name/server": "workspace:*",
         "tailwindcss": "^3.3.3",
         "@pkg-name/tsconfig": "workspace:*",
         "@pkg-name/tailwind-config": "workspace:*",
