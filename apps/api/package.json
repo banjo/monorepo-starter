@@ -30,9 +30,6 @@
         "vitest": "^0.34.4"
     },
     "dependencies": {
-        "@hono/node-server": "^1.1.1",
-        "@hono/trpc-server": "^0.1.0",
-        "@hono/zod-validator": "^0.1.8",
         "@trpc/server": "^10.38.3",
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
@@ -41,7 +38,7 @@
         "zod": "^3.22.2"
     },
     "eslintConfig": {
-        "root":  true,
-        "extends":  "@pkg-name/eslint-config/base"
+        "root": true,
+        "extends": "@pkg-name/eslint-config/base"
     }
 }
