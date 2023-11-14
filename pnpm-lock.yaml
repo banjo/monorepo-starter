@@ -184,6 +184,9 @@ importers:
       '@pkg-name/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
+      '@pkg-name/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
       '@tanstack/eslint-plugin-query':
         specifier: ^4.34.1
         version: 4.34.1(eslint@8.49.0)
@@ -238,9 +241,6 @@ importers:
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3
-      ui:
-        specifier: workspace:*
-        version: link:../../packages/ui
       vite:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.6.2)

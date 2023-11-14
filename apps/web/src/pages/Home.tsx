@@ -1,4 +1,4 @@
-import { Button } from "ui";
+import { Button } from "@pkg-name/ui";
 
 export const Home = () => {
     return (

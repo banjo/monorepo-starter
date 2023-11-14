@@ -1,6 +1,6 @@
 import { useGlobalLoadingStore } from "@/stores/use-global-loading-store";
+import { GlobalLoading } from "@pkg-name/ui";
 import { FC, PropsWithChildren } from "react";
-import { GlobalLoading } from "ui";
 
 export const GlobalLoadingProvider: FC<PropsWithChildren> = ({ children }) => {
     const isLoading = useGlobalLoadingStore(state => state.isLoading);

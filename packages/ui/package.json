@@ -1,5 +1,5 @@
 {
-    "name": "ui",
+    "name": "@pkg-name/ui",
     "version": "1.0.0",
     "license": "MIT",
     "main": "./src/index.ts",
@@ -9,7 +9,7 @@
         "clean": "rimraf node_modules dist .turbo"
     },
     "files": [
-        "src/styles/globals.css"
+        "src/tailwind.css"
     ],
     "devDependencies": {
         "@banjoanton/utils": "^0.1.48",
