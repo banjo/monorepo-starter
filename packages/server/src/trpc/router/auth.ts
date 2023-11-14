@@ -1,4 +1,4 @@
-import { Result } from "@banjoanton/utils";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
@@ -7,6 +7,13 @@ export const authRouter = createTRPCRouter({
         const { slug } = input;
         const externalId = ctx.userId;
 
-        return Result.ok({ externalId, slug });
+        if (!externalId) {
+            throw new TRPCError({
+                code: "INTERNAL_SERVER_ERROR",
+                message: "Some error",
+            });
+        }
+
+        return { externalId, slug };
     }),
 });
