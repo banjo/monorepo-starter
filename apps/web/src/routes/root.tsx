@@ -1,54 +1,31 @@
-import { Home } from "@/pages/Home";
-import ErrorPage from "@/routes/error-page";
-import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router-dom";
+import { useAuth } from "@/contexts/auth-context";
+import ErrorPage from "@/pages/error";
+import { Home } from "@/pages/home";
+import { Landing } from "@/pages/landing";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        errorElement: <ErrorPage />,
-        element: (
-            <>
-                <Outlet />
-            </>
-        ),
-        children: [
-            {
-                path: "/",
-                element: <Home />,
-            },
-            {
-                path: "*",
-                element: <Navigate to={"/"} />,
-            },
-        ],
-    },
-]);
-
-// TODO: use one router instead as firebase support that
-const signedOutRouter = createBrowserRouter([
-    {
-        path: "/",
-        element: <Outlet />,
-        errorElement: <ErrorPage />,
-        children: [
-            {
-                path: "/",
-                element: <>Landing page</>,
-            },
-            {
-                path: "*",
-                element: <Navigate to={"/"} />,
-            },
-        ],
-    },
-]);
+const createAppRouter = (isAuthenticated: boolean) =>
+    createBrowserRouter([
+        {
+            path: "/",
+            errorElement: <ErrorPage />,
+            children: [
+                {
+                    path: "/",
+                    element: isAuthenticated ? <Home /> : <Landing />,
+                },
+                {
+                    path: "*",
+                    element: <Navigate to="/" replace />,
+                },
+            ],
+        },
+    ]);
 
 export function Root() {
-    // const { userId } = useAuth();
+    const { userId } = useAuth();
+    const isAuthenticated = !!userId;
+    const appRouter = createAppRouter(isAuthenticated);
 
-    // if (!userId) {
-    //     return <RouterProvider router={signedOutRouter} />;
-    // }
-
-    return <RouterProvider router={router} />;
+    return <RouterProvider router={appRouter} />;
 }

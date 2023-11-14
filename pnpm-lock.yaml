@@ -53,15 +53,6 @@ importers:
 
   apps/api:
     dependencies:
-      '@hono/node-server':
-        specifier: ^1.1.1
-        version: 1.1.1
-      '@hono/trpc-server':
-        specifier: ^0.1.0
-        version: 0.1.0(@trpc/server@10.38.3)(hono@3.6.3)
-      '@hono/zod-validator':
-        specifier: ^0.1.8
-        version: 0.1.8(hono@3.6.3)(zod@3.22.2)
       '@trpc/server':
         specifier: ^10.38.3
         version: 10.38.3
@@ -87,6 +78,9 @@ importers:
       '@pkg-name/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@pkg-name/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
       '@pkg-name/firebase-server':
         specifier: workspace:*
         version: link:../../packages/firebase-server
@@ -1702,32 +1696,6 @@ packages:
       long: 5.2.3
       protobufjs: 7.2.5
       yargs: 17.7.2
-    dev: false
-
-  /@hono/node-server@1.1.1:
-    resolution: {integrity: sha512-0ZfrcW8Y+TAGNzKGoDB1iQ7Gv7uGsGDOYlz7nckXcHRpK60Oxuz1ttiFmdHYmI6kGO+/VJ8Iy58LDhoTPqkiow==}
-    engines: {node: '>=18.0.0'}
-    dev: false
-
-  /@hono/trpc-server@0.1.0(@trpc/server@10.38.3)(hono@3.6.3):
-    resolution: {integrity: sha512-tgXG/ndgHxLqC09o1bwq8SzLLgzwoCr6KBRDdz9l0k7p0yuW5h67oVSUxCbmFp94hP+ahdIyqnRL84Aw8GvZxQ==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@trpc/server': ^10.10.0
-      hono: 3.*
-    dependencies:
-      '@trpc/server': 10.38.3
-      hono: 3.6.3
-    dev: false
-
-  /@hono/zod-validator@0.1.8(hono@3.6.3)(zod@3.22.2):
-    resolution: {integrity: sha512-/Kd/p/dUVKM7/1TY3jafTV+ngwEh3fOLmXCJQKb9esWsCom5WOJaNmZYv8jeRhyipu1xBvmN5jceRA3Ev3rmQw==}
-    peerDependencies:
-      hono: 3.*
-      zod: ^3.19.1
-    dependencies:
-      hono: 3.6.3
-      zod: 3.22.2
     dev: false
 
   /@humanwhocodes/config-array@0.11.11:
@@ -5593,11 +5561,6 @@ packages:
       - supports-color
       - typescript
     dev: true
-
-  /hono@3.6.3:
-    resolution: {integrity: sha512-8WszeHGzUm45qJy2JcCXkEFXMsAysciGGQs+fbpdUYPO2bRMbjJznZE3LX8tCXBqR4f/3e6225B3YOX6pQZWvA==}
-    engines: {node: '>=16.0.0'}
-    dev: false
 
   /hosted-git-info@2.8.9:
     resolution: {integrity: sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==}
