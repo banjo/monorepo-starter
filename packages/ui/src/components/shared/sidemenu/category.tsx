@@ -17,15 +17,15 @@ export const Category: FC<CategoryProps> = ({ title, children, defaultIsOpen = t
 
     return (
         <div>
-            <div className="flex justify-between items-center" onClick={toggleOpen}>
-                <span className="text-xs font-semibold uppercase tracking-widest text-slate-400 ml-4 md:ml-8 cursor-pointer">
+            <div className="flex items-center justify-between" onClick={toggleOpen}>
+                <span className="ml-4 cursor-pointer text-xs font-semibold uppercase tracking-widest text-slate-400 md:ml-8">
                     {title}
                 </span>
                 <ResponsiveIcon
                     Icon={Icons.chevronDown}
-                    className={`mr-8 hidden md:block
+                    className={`mr-8 hidden text-slate-400
                     transition-transform duration-500 ease-in-out
-                    text-slate-400
+                    md:block
                     ${isOpen ? "rotate-180" : ""}`}
                 />
             </div>
@@ -33,7 +33,7 @@ export const Category: FC<CategoryProps> = ({ title, children, defaultIsOpen = t
             {/* Desktop */}
             <div
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-                className="transition-['grid-template-rows'] duration-500 ease-in-out hidden md:grid"
+                className="hidden transition-['grid-template-rows'] duration-500 ease-in-out md:grid"
             >
                 <div className="overflow-hidden">{children}</div>
             </div>

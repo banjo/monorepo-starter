@@ -37,19 +37,19 @@ export const Item: FC<ItemProps> = ({
         <Link
             to={url}
             onClick={onClick}
-            className={`flex relative h-10 w-full md:w-72 cursor-pointer items-center justify-between gap-4 rounded
-            px-4 md:px-6 text-foreground
+            className={`text-foreground relative flex h-10 w-full cursor-pointer items-center justify-between gap-4 rounded
+            px-4 md:w-72 md:px-6
             ${selectedClasses}
             ${highlightClasses}
             `}
         >
-            <div className="flex items-center gap-4 relative overflow-hidden">
-                <span className="w-6 h-6 ">
-                    {Icon && <Icon className="w-6 h-6" />}
+            <div className="relative flex items-center gap-4 overflow-hidden">
+                <span className="h-6 w-6 ">
+                    {Icon && <Icon className="h-6 w-6" />}
                     {image && <img src={image} className="h-6 w-6 max-w-none" />}
                 </span>
                 <Tooltip tooltip={title}>
-                    <span className="text-lg md:text-sm truncate w-full md:w-36">{title}</span>
+                    <span className="w-full truncate text-lg md:w-36 md:text-sm">{title}</span>
                 </Tooltip>
             </div>
 

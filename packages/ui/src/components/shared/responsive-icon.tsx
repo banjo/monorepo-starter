@@ -29,7 +29,7 @@ export const ResponsiveIcon: FC<FilterIconProps> = ({
                 className={cn(
                     `${iconSizeMapper[size]} 
                     active:opacity-40 
-                    ${disabled ? "opacity-30" : "cursor-pointer hover:opacity-70 outline-none"}`,
+                    ${disabled ? "opacity-30" : "cursor-pointer outline-none hover:opacity-70"}`,
                     className
                 )}
                 onClick={disabled ? noop : onClick}
