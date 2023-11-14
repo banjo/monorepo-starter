@@ -2,6 +2,7 @@
     "name": "pkg-name",
     "version": "1.0.0",
     "description": "",
+    "type": "module",
     "scripts": {
         "dev": "turbo dev",
         "clean": "pnpm run --parallel clean && rimraf node_modules",
@@ -25,8 +26,9 @@
         "@antfu/ni": "^0.21.8",
         "@banjoanton/eslint-config": "^0.1.11",
         "@banjoanton/prettier-config": "^0.1.10",
-        "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
+        "@pkg-name/prettier-config": "workspace:*",
         "eslint": "^8.49.0",
+        "eslint-plugin-prettier": "^5.0.1",
         "hoks": "^0.1.17",
         "prettier": "^3.0.3",
         "rimraf": "^5.0.1",
@@ -35,6 +37,6 @@
         "typescript": "^5.2.2",
         "zx": "^7.2.3"
     },
-    "prettier": "@banjoanton/prettier-config",
-    "packageManager": "pnpm@8.6.3"
+    "packageManager": "pnpm@8.6.3",
+    "prettier": "@pkg-name/prettier-config"
 }

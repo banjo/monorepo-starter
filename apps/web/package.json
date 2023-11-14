@@ -44,11 +44,9 @@
         "autoprefixer": "^10.4.15",
         "@pkg-name/db": "workspace:*",
         "eslint": "^8.49.0",
-        "eslint-plugin-prettier": "^5.0.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.3",
         "postcss": "^8.4.29",
-        "prettier": "^3.0.3",
         "@pkg-name/server": "workspace:*",
         "tailwindcss": "^3.3.3",
         "@pkg-name/tsconfig": "workspace:*",
@@ -56,6 +54,5 @@
         "@pkg-name/ui": "workspace:*",
         "vite": "^4.4.9",
         "vite-tsconfig-paths": "^4.2.1"
-    },
-    "prettier": "@banjoanton/prettier-config"
+    }
 }

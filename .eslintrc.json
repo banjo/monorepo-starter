@@ -1,6 +1,6 @@
 {
     "root": true,
-    "extends": ["@banjoanton/eslint-config"],
+    "extends": ["@banjoanton/eslint-config", "prettier"],
     "rules": {
         "n/no-unpublished-import": "off",
         "import/no-unresolved": "off",
