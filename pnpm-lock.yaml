@@ -96,6 +96,9 @@ importers:
       '@pkg-name/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
+      '@pkg-name/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@types/cors':
         specifier: ^2.8.14
         version: 2.8.14
@@ -108,9 +111,6 @@ importers:
       tsx:
         specifier: ^3.12.10
         version: 3.12.10
-      utils:
-        specifier: workspace:*
-        version: link:../../packages/utils
       vitest:
         specifier: ^0.34.4
         version: 0.34.4
@@ -316,12 +316,12 @@ importers:
       '@pkg-name/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
+      '@pkg-name/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@types/node':
         specifier: ^20.6.2
         version: 20.6.2
-      utils:
-        specifier: workspace:*
-        version: link:../utils
 
   packages/ui:
     dependencies:

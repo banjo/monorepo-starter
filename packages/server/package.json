@@ -14,7 +14,7 @@
         "@pkg-name/db": "workspace:*",
         "@pkg-name/firebase-server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
-        "utils": "workspace:*"
+        "@pkg-name/utils": "workspace:*"
     },
     "dependencies": {
         "@trpc/client": "^10.38.3",
