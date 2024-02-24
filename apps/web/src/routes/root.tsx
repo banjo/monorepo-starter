@@ -1,6 +1,6 @@
 import { useAuth } from "@/contexts/auth-context";
 import ErrorPage from "@/pages/error";
-import { Home } from "@/pages/home";
+import { Home } from "@/pages/Home";
 import { Landing } from "@/pages/landing";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 
