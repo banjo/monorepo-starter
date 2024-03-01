@@ -1,6 +1,7 @@
 import { auth } from "@/lib/firebase";
 import { isDev } from "@/utils/runtime";
 import { Maybe, raise } from "@banjoanton/utils";
+import { Loader } from "@pkg-name/ui";
 import {
     GoogleAuthProvider,
     User,
@@ -152,7 +153,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     return (
         <AuthContext.Provider value={contextValue}>
-            {isLoading ? <div>Loading...</div> : children}
+            {isLoading ? <Loader>Loading...</Loader> : children}
         </AuthContext.Provider>
     );
 };
