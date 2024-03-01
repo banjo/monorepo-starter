@@ -12,7 +12,7 @@
         "src/tailwind.css"
     ],
     "devDependencies": {
-        "@banjoanton/utils": "^0.1.56",
+        "@banjoanton/utils": "^0.1.77",
         "@pkg-name/tailwind-config": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
         "@types/react": "^18.2.37",

@@ -6,11 +6,11 @@
  * tl;dr - this is where all the tRPC server stuff is created and plugged in.
  * The pieces you will need to use are documented accordingly near the end
  */
+import { wrapAsync } from "@banjoanton/utils";
 import { auth } from "@pkg-name/firebase-server";
-import { createLogger, getDevId, isDev } from "@pkg-name/utils";
+import { Cause, createLogger, getDevId, isDev } from "@pkg-name/utils";
 import { TRPCError, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
-import { DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import superjson from "superjson";
 import { ZodError } from "zod";
 import { UserRepository } from "../repositories/UserRepository";
@@ -34,13 +34,12 @@ const logger = createLogger("auth");
  */
 export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressContextOptions) => {
     const authHeader = req?.headers.authorization;
-    const createResponse = (userId?: number) => {
-        return {
-            req,
-            res,
-            userId,
-        };
-    };
+    const createResponse = (userId?: number, expired = false) => ({
+        req,
+        res,
+        userId,
+        expired,
+    });
 
     if (isDev()) {
         return createResponse(getDevId());
@@ -63,12 +62,11 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
         return createResponse();
     }
 
-    let decodedToken: DecodedIdToken;
-    try {
-        decodedToken = await auth.verifyIdToken(idToken);
-    } catch (error) {
-        console.log(error);
-        return createResponse();
+    const [decodedToken, err] = await wrapAsync(async () => await auth.verifyIdToken(idToken));
+
+    if (err) {
+        logger.error(err);
+        return createResponse(undefined, true);
     }
 
     const userIdResponse = await UserRepository.getIdByExternalId(decodedToken.uid);
@@ -113,8 +111,11 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
 const t = initTRPC.context<typeof createTRPCContext>().create({
     transformer: superjson,
     errorFormatter({ shape, error }) {
+        const cause = Cause.from(error);
+
         return {
             ...shape,
+            cause,
             data: {
                 ...shape.data,
                 zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
@@ -150,6 +151,14 @@ export const publicProcedure = t.procedure;
  * procedure
  */
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+    if (ctx.expired) {
+        throw new TRPCError({
+            code: "UNAUTHORIZED",
+            cause: Cause.EXPIRED_TOKEN,
+            message: "Token expired",
+        });
+    }
+
     if (!ctx.userId) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }

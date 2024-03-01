@@ -9,7 +9,7 @@
         "clean": "rimraf node_modules dist .turbo"
     },
     "devDependencies": {
-        "@banjoanton/utils": "^0.1.56",
+        "@banjoanton/utils": "^0.1.77",
         "@pkg-name/db": "workspace:*",
         "@pkg-name/firebase-server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",

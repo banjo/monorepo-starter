@@ -15,7 +15,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@banjoanton/utils": "^0.1.56",
+        "@banjoanton/utils": "^0.1.77",
         "@pkg-name/db": "workspace:*",
         "@pkg-name/eslint-config": "workspace:*",
         "@pkg-name/firebase-server": "workspace:*",
