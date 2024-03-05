@@ -11,6 +11,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@originjs/vite-plugin-commonjs": "^1.0.3",
         "@tanstack/react-query": "^4.35.3",
         "@trpc/client": "^10.43.3",
         "@trpc/react-query": "^10.43.3",
@@ -35,10 +36,10 @@
         "@pkg-name/db": "workspace:*",
         "@pkg-name/eslint-config": "workspace:*",
         "@pkg-name/server": "workspace:*",
-        "@pkg-name/utils": "workspace:*",
         "@pkg-name/tailwind-config": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
         "@pkg-name/ui": "workspace:*",
+        "@pkg-name/utils": "workspace:*",
         "@types/node": "^20.9.0",
         "@types/react": "^18.2.37",
         "@types/react-dom": "^18.2.15",
