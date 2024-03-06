@@ -2,7 +2,7 @@ import { useAuth } from "@/contexts/auth-context";
 import { trpc } from "@/lib/trpc";
 import { getApiUrl } from "@/utils/runtime";
 import { Maybe } from "@banjoanton/utils";
-import { Cause } from "@pkg-name/utils";
+import { Cause } from "@pkg-name/common";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TRPCClientError, httpBatchLink } from "@trpc/client";
 import { FC, PropsWithChildren, useState } from "react";

@@ -39,7 +39,7 @@
         "@pkg-name/tailwind-config": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
         "@pkg-name/ui": "workspace:*",
-        "@pkg-name/utils": "workspace:*",
+        "@pkg-name/common": "workspace:*",
         "@types/node": "^20.9.0",
         "@types/react": "^18.2.37",
         "@types/react-dom": "^18.2.15",

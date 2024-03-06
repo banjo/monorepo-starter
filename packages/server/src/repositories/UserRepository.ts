@@ -1,6 +1,6 @@
 import { AsyncResultType, Result } from "@banjoanton/utils";
 import { User, prisma } from "@pkg-name/db";
-import { createLogger } from "@pkg-name/utils";
+import { createLogger } from "@pkg-name/common";
 
 const logger = createLogger("UserRepository");
 

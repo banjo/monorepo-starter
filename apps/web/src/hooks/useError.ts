@@ -1,7 +1,7 @@
 import { useAuth } from "@/contexts/auth-context";
 import { toastError } from "@/utils/error";
 import { Maybe, attempt, defaults } from "@banjoanton/utils";
-import { Cause } from "@pkg-name/utils";
+import { Cause } from "@pkg-name/common";
 import { TRPCClientError } from "@trpc/client";
 import { toast as internalToast } from "react-hot-toast";
 

@@ -13,7 +13,7 @@
         "@pkg-name/db": "workspace:*",
         "@pkg-name/firebase-server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
-        "@pkg-name/utils": "workspace:*",
+        "@pkg-name/common": "workspace:*",
         "@types/node": "^20.9.0"
     },
     "dependencies": {
