@@ -7,12 +7,13 @@
  * The pieces you will need to use are documented accordingly near the end
  */
 import { wrapAsync } from "@banjoanton/utils";
+import { Cause, createLogger } from "@pkg-name/common";
 import { auth } from "@pkg-name/firebase-server";
-import { Cause, createLogger, getDevId, isDev } from "@pkg-name/common";
 import { TRPCError, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { getLocalDevelopmentId, isLocalDevelopment } from "../lib/runtime";
 import { UserRepository } from "../repositories/UserRepository";
 
 const logger = createLogger("auth");
@@ -41,8 +42,8 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
         expired,
     });
 
-    if (isDev()) {
-        return createResponse(getDevId());
+    if (isLocalDevelopment()) {
+        return createResponse(getLocalDevelopmentId());
     }
 
     if (!authHeader) {

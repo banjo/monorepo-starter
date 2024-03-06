@@ -1,6 +1,7 @@
 import { auth } from "@/lib/firebase";
-import { isDev } from "@/utils/runtime";
+import { isLocalDevelopment } from "@/utils/runtime";
 import { Maybe, raise } from "@banjoanton/utils";
+import { Env } from "@pkg-name/common";
 import { Loader } from "@pkg-name/ui";
 import {
     GoogleAuthProvider,
@@ -12,6 +13,8 @@ import {
 
 import { jwtDecode } from "jwt-decode";
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+
+const env = Env.client();
 
 export type AuthContextType = {
     user: User | null;
@@ -99,9 +102,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     // Development mode without authentication
     useEffect(() => {
-        if (isDev()) {
-            const uid =
-                import.meta.env.VITE_DEVELOPMENT_UID ?? raise("VITE_DEVELOPMENT_UID not specified");
+        if (isLocalDevelopment()) {
+            const uid = env.VITE_DEVELOPMENT_UID ?? raise("VITE_DEVELOPMENT_UID not specified");
 
             setUser({
                 uid,
@@ -112,7 +114,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, []);
 
     useEffect(() => {
-        if (isDev()) return;
+        if (isLocalDevelopment()) return;
 
         const unsubscribe = onAuthStateChanged(auth, async currentUser => {
             setUser(currentUser);
@@ -130,7 +132,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }, [refreshToken]);
 
     useEffect(() => {
-        if (isDev()) return;
+        if (isLocalDevelopment()) return;
 
         if (!user) {
             setToken(undefined);

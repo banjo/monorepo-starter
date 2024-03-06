@@ -1,4 +1,5 @@
-import { getUrl } from "@app/utils";
+import { getClientUrl } from "@app/utils";
+import { Env } from "@pkg-name/common";
 import { appRouter, createTRPCContext } from "@pkg-name/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
@@ -6,7 +7,7 @@ import "dotenv/config";
 import express from "express";
 
 const app = express();
-const url = getUrl();
+const url = getClientUrl();
 
 app.use(
     "/trpc",
@@ -26,8 +27,9 @@ app.use(
     })
 );
 
-const PORT = Number(process.env.PORT) || 3003;
-const isProd = process.env.NODE_ENV === "production";
+const env = Env.server();
+const PORT = Number(env.PORT) || 3003;
+const isProd = env.NODE_ENV === "production";
 
 console.log(`🚀 Server ready at port ${PORT} - Mode: ${isProd ? "production" : "development"}`);
 

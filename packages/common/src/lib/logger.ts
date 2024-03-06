@@ -1,11 +1,19 @@
 import { isBrowser } from "@banjoanton/utils";
-import { TransportTargetOptions, pino } from "pino";
+import pino, { TransportTargetOptions } from "pino";
+import { Env } from "../env";
+// * Pino import needs to be default to work in the browser
+// * This file cannot parse with Env.server() because this file is loaded before the .env file.
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let sharedTransport: any;
+
+export const LOG_LEVELS = ["trace", "debug", "info", "warn", "error", "fatal"] as const;
+export type LogLevel = (typeof LOG_LEVELS)[number];
 
 export const createLogger = (name: string) => {
     if (isBrowser()) {
-        return pino({ name });
+        const clientVariables = Env.allClient();
+        return pino({ name, level: clientVariables.LOG_LEVEL || "info" });
     }
 
     const targets: TransportTargetOptions[] = [
@@ -19,9 +27,11 @@ export const createLogger = (name: string) => {
         },
     ];
 
-    // if (process.env.NODE_ENV === "production") {
-    //     const DATASET = process.env.AXIOM_DATASET ?? raise("AXIOM_DATASET is not set");
-    //     const AXIOM_TOKEN = process.env.AXIOM_TOKEN ?? raise("AXIOM_TOKEN is not set");
+    // const env = Env.server();
+
+    // if (env.NODE_ENV === "production") {
+    //     const DATASET = env.AXIOM_DATASET;
+    //     const AXIOM_TOKEN = env.AXIOM_TOKEN;
 
     //     targets.push({
     //         target: "@axiomhq/pino",
@@ -39,7 +49,8 @@ export const createLogger = (name: string) => {
         });
     }
 
-    return pino({ name }, sharedTransport);
+    const serverVariables = Env.allServer();
+    return pino({ name, level: serverVariables.LOG_LEVEL ?? "info" }, sharedTransport);
 };
 
 export { type Logger } from "pino";

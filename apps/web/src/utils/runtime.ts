@@ -1,7 +1,5 @@
-import { raise } from "@banjoanton/utils";
+import { Env } from "@pkg-name/common";
 
-export const isDev = () => import.meta.env.DEV && import.meta.env.VITE_LOCAL_DEVELOPMENT === "true";
-
-export const getApiUrl = () => {
-    return import.meta.env.VITE_API_URL ?? raise("VITE_API_URL is not defined");
-};
+const env = Env.client();
+export const isLocalDevelopment = () => env.VITE_LOCAL_DEVELOPMENT === "true";
+export const getApiUrl = () => env.VITE_API_URL;

@@ -1,10 +1,11 @@
-import { raise } from "@banjoanton/utils";
+import { Env } from "@pkg-name/common";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+const env = Env.client();
+
 const getFirebaseConfig = () => {
-    const key =
-        import.meta.env.VITE_FIREBASE_CONFIG ?? raise("VITE_FIREBASE_CONFIG is not defined");
+    const key = env.VITE_FIREBASE_CONFIG;
 
     const config = atob(key);
     return JSON.parse(config);

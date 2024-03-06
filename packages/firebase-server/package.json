@@ -11,7 +11,8 @@
     "devDependencies": {
         "@banjoanton/utils": "^0.1.77",
         "@pkg-name/tsconfig": "workspace:*",
-        "@types/node": "^20.9.0"
+        "@types/node": "^20.9.0",
+        "@pkg-name/common": "workspace:*"
     },
     "dependencies": {
         "dotenv": "^16.3.1",

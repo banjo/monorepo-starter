@@ -1,5 +1,4 @@
-import { raise } from "@banjoanton/utils";
+import { Env } from "@pkg-name/common";
 
-export const getUrl = () => {
-    return process.env.CLIENT_URL ?? raise("CLIENT_URL is not defined");
-};
+const env = Env.server();
+export const getClientUrl = () => env.CLIENT_URL;

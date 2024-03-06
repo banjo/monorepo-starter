@@ -283,6 +283,9 @@ importers:
       '@banjoanton/utils':
         specifier: ^0.1.77
         version: 0.1.77
+      '@pkg-name/common':
+        specifier: workspace:*
+        version: link:../common
       '@pkg-name/tsconfig':
         specifier: workspace:*
         version: link:../../tooling/tsconfig
