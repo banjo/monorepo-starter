@@ -112,7 +112,7 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
 const t = initTRPC.context<typeof createTRPCContext>().create({
     transformer: superjson,
     errorFormatter({ shape, error }) {
-        const cause = Cause.from(error);
+        const cause = Cause.fromServerError(error);
 
         return {
             ...shape,
@@ -163,6 +163,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     if (!ctx.userId) {
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
+
     return next({
         ctx: {
             // infers the `session` as non-nullable
