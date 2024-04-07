@@ -8,6 +8,7 @@
         "clean": "pnpm run --parallel clean && rimraf node_modules",
         "build": "turbo build",
         "web:build": "turbo build --filter web",
+        "typecheck": "turbo typecheck",
         "lint:all": "turbo lint",
         "studio": "pnpm run --filter @pkg-name/db studio",
         "format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",

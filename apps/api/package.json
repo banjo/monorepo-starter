@@ -9,7 +9,8 @@
         "dev": "tsx watch src/index.ts",
         "lint": "eslint . --ext .ts",
         "build": "tsup",
-        "clean": "rimraf node_modules dist"
+        "clean": "rimraf node_modules dist",
+        "typecheck": "tsc --noEmit"
     },
     "keywords": [],
     "author": "",

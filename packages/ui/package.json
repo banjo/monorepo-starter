@@ -6,7 +6,8 @@
     "types": "./src/index.ts",
     "scripts": {
         "add": "pnpm dlx shadcn-ui@latest add",
-        "clean": "rimraf node_modules dist .turbo"
+        "clean": "rimraf node_modules dist .turbo",
+        "typecheck": "tsc --noEmit"
     },
     "files": [
         "src/tailwind.css"

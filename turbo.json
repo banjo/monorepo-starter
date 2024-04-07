@@ -3,12 +3,7 @@
     "pipeline": {
         "build": {
             "dependsOn": ["^db:generate"],
-            "env": [
-                "DATABASE_URL",
-                "FIREBASE_ADMIN_KEY",
-                "CLIENT_URL",
-                "VITE_API_URL"
-            ],
+            "env": ["DATABASE_URL", "FIREBASE_ADMIN_KEY", "CLIENT_URL", "VITE_API_URL"],
             "outputs": ["dist", ".vercel/**"]
         },
         "lint": {},
@@ -20,6 +15,9 @@
             "cache": false
         },
         "db:push": {
+            "cache": false
+        },
+        "typecheck": {
             "cache": false
         }
     }
