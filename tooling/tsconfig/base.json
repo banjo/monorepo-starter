@@ -17,7 +17,7 @@
         "preserveWatchOutput": true,
         "skipLibCheck": true,
         "strict": true,
-        "preserveSymlinks": true,
+        "preserveSymlinks": false,
         "allowJs": true,
         "checkJs": true,
         "noEmit": true,
