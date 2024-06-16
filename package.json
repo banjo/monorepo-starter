@@ -1,48 +1,48 @@
 {
-    "name": "pkg-name",
-    "version": "1.0.0",
-    "description": "",
-    "type": "module",
-    "scripts": {
-        "dev": "turbo dev",
-        "clean": "pnpm run --parallel clean && rimraf node_modules",
-        "build": "turbo build",
-        "web:build": "turbo build --filter web",
-        "typecheck": "turbo typecheck",
-        "lint:all": "turbo lint",
-        "studio": "pnpm run --filter @pkg-name/db studio",
-        "format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
-        "db:build": "turbo build --filter @pkg-name/db",
-        "db:local:start": "docker compose -f docker/docker-compose.yml up -d --remove-orphans",
-        "db:local:stop": "docker compose -f docker/docker-compose.yml down --remove-orphans",
-        "db:local:logs": "docker compose -f docker/docker-compose.yml logs --follow",
-        "db:local:reset": "pnpm --filter @pkg-name/db db:reset",
-        "db:reset": "./scripts/reset-db.sh",
-        "deploy:api": "./scripts/deploy.sh pkg-name-api",
-        "logs:api": "./scripts/logs.sh pkg-name-api"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@antfu/ni": "^0.21.9",
-        "@pkg-name/eslint-config": "workspace:*",
-        "@pkg-name/prettier-config": "workspace:*",
-        "eslint": "^8.53.0",
-        "hoks": "^0.1.17",
-        "prettier": "^3.1.0",
-        "rimraf": "^5.0.5",
-        "tsup": "^7.2.0",
-        "turbo": "^1.10.16",
-        "typescript": "^5.2.2",
-        "zx": "^7.2.3"
-    },
-    "packageManager": "pnpm@8.10.5",
-    "prettier": "@pkg-name/prettier-config",
-    "eslintConfig": {
-        "root": true,
-        "extends": [
-            "@pkg-name/eslint-config/base"
-        ]
-    }
+  "name": "pkg-name",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "clean": "pnpm run --parallel clean && rimraf node_modules",
+    "build": "turbo build",
+    "web:build": "turbo build --filter web",
+    "typecheck": "turbo typecheck",
+    "lint:all": "turbo lint",
+    "studio": "pnpm run --filter @pkg-name/db studio",
+    "format": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
+    "db:build": "turbo build --filter @pkg-name/db",
+    "db:local:start": "docker compose -f docker/docker-compose.yml up -d --remove-orphans",
+    "db:local:stop": "docker compose -f docker/docker-compose.yml down --remove-orphans",
+    "db:local:logs": "docker compose -f docker/docker-compose.yml logs --follow",
+    "db:local:reset": "pnpm --filter @pkg-name/db db:reset",
+    "db:reset": "./scripts/reset-db.sh",
+    "deploy:api": "./scripts/deploy.sh pkg-name-api",
+    "logs:api": "./scripts/logs.sh pkg-name-api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@antfu/ni": "^0.21.9",
+    "@pkg-name/eslint-config": "workspace:*",
+    "@pkg-name/prettier-config": "workspace:*",
+    "eslint": "^8.53.0",
+    "hoks": "^0.1.17",
+    "prettier": "^3.1.0",
+    "rimraf": "^5.0.5",
+    "tsup": "^7.2.0",
+    "turbo": "^2.0.4",
+    "typescript": "^5.2.2",
+    "zx": "^7.2.3"
+  },
+  "packageManager": "pnpm@8.7.4",
+  "prettier": "@pkg-name/prettier-config",
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "@pkg-name/eslint-config/base"
+    ]
+  }
 }
