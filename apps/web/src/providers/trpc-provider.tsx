@@ -1,5 +1,6 @@
 import { useAuth } from "@/contexts/auth-context";
 import { trpc } from "@/lib/trpc";
+import { authService } from "@/services/auth-service";
 import { getApiUrl } from "@/utils/runtime";
 import { Maybe } from "@banjoanton/utils";
 import { Cause } from "@pkg-name/common";
@@ -8,7 +9,7 @@ import { TRPCClientError, httpBatchLink } from "@trpc/client";
 import { FC, PropsWithChildren, useState } from "react";
 import superjson from "superjson";
 
-const createTrpcClient = (backendUrl: string, token: Maybe<string>) => {
+const createTrpcClient = (backendUrl: string) => {
     return trpc.createClient({
         links: [
             httpBatchLink({
@@ -20,6 +21,7 @@ const createTrpcClient = (backendUrl: string, token: Maybe<string>) => {
                     });
                 },
                 headers: async () => {
+                    const token = authService.getAuthState().token;
                     if (token) {
                         return {
                             authorization: `Bearer ${token}`,
@@ -35,7 +37,6 @@ const createTrpcClient = (backendUrl: string, token: Maybe<string>) => {
 };
 
 export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {
-    const { token, refreshToken } = useAuth();
     const [queryClient] = useState(
         () =>
             new QueryClient({
@@ -47,7 +48,7 @@ export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {
                                     error.data.code === "UNAUTHORIZED" &&
                                     error.shape?.cause === Cause.EXPIRED_TOKEN
                                 ) {
-                                    refreshToken(); // not best solution, but it works
+                                    authService.refreshToken(); // not best solution, but it works
                                 }
                             }
 
@@ -61,7 +62,7 @@ export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {
                                     error.data.code === "UNAUTHORIZED" &&
                                     error.shape?.cause === Cause.EXPIRED_TOKEN
                                 ) {
-                                    refreshToken(); // not best solution, but it works
+                                    authService.refreshToken(); // not best solution, but it works
                                 }
                             }
 
@@ -71,7 +72,7 @@ export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {
                 },
             })
     );
-    const [trpcClient] = useState(() => createTrpcClient(getApiUrl(), token));
+    const [trpcClient] = useState(() => createTrpcClient(getApiUrl()));
 
     return (
         <trpc.Provider client={trpcClient} queryClient={queryClient}>
