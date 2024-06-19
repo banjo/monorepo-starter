@@ -1,6 +1,6 @@
 import pino from "pino";
 import { NodeContext } from "./node-context";
-import { createLogger } from "@pkg-name/common";
+import { Env, createLogger } from "@pkg-name/common";
 import { invariant } from "@banjoanton/utils";
 
 const getNamespace = () => ({
@@ -105,3 +105,12 @@ class ContextLogger implements ILogger {
 }
 
 export const createContextLogger = (name: string): ILogger => new ContextLogger(name);
+
+export const startupLog = (name: string, logger: ILogger) => {
+    const env = Env.server();
+    logger.info(`🚀 Starting up ${name}`);
+    logger.info(`🖥️ Environment: ${env.NODE_ENV}`);
+    logger.info(`📝 Log level: ${env.LOG_LEVEL}`);
+    logger.info(`🚪 Port: ${env.PORT}`);
+    logger.info(`🔗 Client URL: ${env.CLIENT_URL}`);
+};
