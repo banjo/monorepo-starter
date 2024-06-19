@@ -1,8 +1,8 @@
 import { Result } from "@banjoanton/utils";
-import { createLogger } from "@pkg-name/common";
+import { createContextLogger } from "../lib/context-logger";
 import { UserRepository } from "../repositories/UserRepository";
 
-const logger = createLogger("UserService");
+const logger = createContextLogger("user-service");
 
 type CreateUserProps = {
     externalId: string;

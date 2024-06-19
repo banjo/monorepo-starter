@@ -7,16 +7,18 @@
  * The pieces you will need to use are documented accordingly near the end
  */
 import { wrapAsync } from "@banjoanton/utils";
-import { Cause, createLogger } from "@pkg-name/common";
+import { Cause } from "@pkg-name/common";
 import { auth } from "@pkg-name/firebase-server";
 import { TRPCError, initTRPC } from "@trpc/server";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { createContextLogger } from "../lib/context-logger";
+import { NodeContext } from "../lib/node-context";
 import { getLocalDevelopmentId, isLocalDevelopment } from "../lib/runtime";
 import { UserRepository } from "../repositories/UserRepository";
 
-const logger = createLogger("auth");
+const logger = createContextLogger("auth-middleware");
 
 /**
  * 1. CONTEXT
@@ -34,18 +36,20 @@ const logger = createLogger("auth");
  * @link https://trpc.io/docs/context
  */
 export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressContextOptions) => {
-    const authHeader = req?.headers.authorization;
+    const requestId = NodeContext.getRequestId();
     const createResponse = (userId?: number, expired = false) => ({
         req,
         res,
         userId,
         expired,
+        requestId,
     });
 
     if (isLocalDevelopment()) {
         return createResponse(getLocalDevelopmentId());
     }
 
+    const authHeader = req?.headers.authorization;
     if (!authHeader) {
         logger.info("No auth header");
         return createResponse();
@@ -66,7 +70,7 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
     const [decodedToken, err] = await wrapAsync(async () => await auth.verifyIdToken(idToken));
 
     if (err) {
-        logger.error(err);
+        logger.error(err, "Could not verify id token");
         return createResponse(undefined, true);
     }
 
@@ -97,9 +101,11 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
 
         logger.info("Created user with id: ", user.data.id);
 
+        NodeContext.setUserId(user.data.id);
         return createResponse(user.data.id);
     }
 
+    NodeContext.setUserId(userIdResponse.data);
     return createResponse(userIdResponse.data);
 };
 
