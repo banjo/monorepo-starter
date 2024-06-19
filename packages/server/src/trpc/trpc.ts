@@ -67,10 +67,10 @@ export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressC
         return createResponse();
     }
 
-    const [decodedToken, err] = await wrapAsync(async () => await auth.verifyIdToken(idToken));
+    const [decodedToken, error] = await wrapAsync(async () => await auth.verifyIdToken(idToken));
 
-    if (err) {
-        logger.error(err, "Could not verify id token");
+    if (error) {
+        logger.error({ error }, "Could not verify id token");
         return createResponse(undefined, true);
     }
 

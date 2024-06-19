@@ -35,5 +35,5 @@ const env = Env.server();
 const PORT = Number(env.PORT) || 3003;
 
 app.listen(PORT, () => {
-    startupLog("API", logger);
+    startupLog("API");
 });
