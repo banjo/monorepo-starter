@@ -1,6 +1,6 @@
 import { Result } from "@banjoanton/utils";
 import { createContextLogger } from "../lib/context-logger";
-import { UserRepository } from "../repositories/UserRepository";
+import { UserRepository } from "../repositories/user-repository";
 
 const logger = createContextLogger("user-service");
 

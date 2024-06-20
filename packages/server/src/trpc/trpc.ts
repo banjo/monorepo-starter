@@ -16,7 +16,7 @@ import { ZodError } from "zod";
 import { createContextLogger } from "../lib/context-logger";
 import { NodeContext } from "../lib/node-context";
 import { getLocalDevelopmentId, isLocalDevelopment } from "../lib/runtime";
-import { UserRepository } from "../repositories/UserRepository";
+import { UserRepository } from "../repositories/user-repository";
 
 const logger = createContextLogger("auth-middleware");
 
