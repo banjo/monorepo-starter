@@ -6,13 +6,13 @@ import { TokenUtil } from "@/utils/token";
 import { Maybe, toMilliseconds } from "@banjoanton/utils";
 import { Cause } from "@pkg-name/common";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { TRPCClientError, httpBatchLink } from "@trpc/client";
+import { httpBatchLink, TRPCClientError } from "@trpc/client";
 import { FC, PropsWithChildren, useState } from "react";
 import superjson from "superjson";
 import { tokenRefreshLink } from "trpc-token-refresh-link";
 
-const createTrpcClient = (backendUrl: string) => {
-    return trpc.createClient({
+const createTrpcClient = (backendUrl: string) =>
+    trpc.createClient({
         links: [
             tokenRefreshLink({
                 // access to the original tRPC query operation object
@@ -58,7 +58,6 @@ const createTrpcClient = (backendUrl: string) => {
         ],
         transformer: superjson,
     });
-};
 
 export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {
     const [queryClient] = useState(
@@ -67,13 +66,12 @@ export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {
                 defaultOptions: {
                     queries: {
                         retry(failureCount, error) {
-                            if (error instanceof TRPCClientError) {
-                                if (
-                                    error.data.code === "UNAUTHORIZED" &&
-                                    error.shape?.cause === Cause.EXPIRED_TOKEN
-                                ) {
-                                    authService.refreshToken(); // not best solution, but it works
-                                }
+                            if (
+                                error instanceof TRPCClientError &&
+                                error.data.code === "UNAUTHORIZED" &&
+                                error.shape?.cause === Cause.EXPIRED_TOKEN
+                            ) {
+                                authService.refreshToken(); // not best solution, but it works
                             }
 
                             return failureCount < 3;
@@ -81,13 +79,12 @@ export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {
                     },
                     mutations: {
                         retry(failureCount, error) {
-                            if (error instanceof TRPCClientError) {
-                                if (
-                                    error.data.code === "UNAUTHORIZED" &&
-                                    error.shape?.cause === Cause.EXPIRED_TOKEN
-                                ) {
-                                    authService.refreshToken(); // not best solution, but it works
-                                }
+                            if (
+                                error instanceof TRPCClientError &&
+                                error.data.code === "UNAUTHORIZED" &&
+                                error.shape?.cause === Cause.EXPIRED_TOKEN
+                            ) {
+                                authService.refreshToken(); // not best solution, but it works
                             }
 
                             return failureCount < 3;

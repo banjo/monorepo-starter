@@ -1,6 +1,6 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
-    extends: ["turbo", "prettier", "@banjoanton/eslint-config"],
+    extends: ["prettier", "@banjoanton/eslint-config"],
     env: {
         node: true,
         es2022: true,
