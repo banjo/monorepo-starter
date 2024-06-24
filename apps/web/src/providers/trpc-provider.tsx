@@ -1,9 +1,8 @@
-import { useAuth } from "@/contexts/auth-context";
 import { trpc } from "@/lib/trpc";
 import { authService } from "@/services/auth-service";
 import { getApiUrl } from "@/utils/runtime";
 import { TokenUtil } from "@/utils/token";
-import { Maybe, toMilliseconds } from "@banjoanton/utils";
+import { toMilliseconds } from "@banjoanton/utils";
 import { Cause } from "@pkg-name/common";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, TRPCClientError } from "@trpc/client";
@@ -54,9 +53,9 @@ const createTrpcClient = (backendUrl: string) =>
 
                     return {};
                 },
+                transformer: superjson,
             }),
         ],
-        transformer: superjson,
     });
 
 export const TrpcProvider: FC<PropsWithChildren> = ({ children }) => {

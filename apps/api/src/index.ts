@@ -26,6 +26,7 @@ app.use(
             const req = opts?.req;
             const res = opts?.res;
 
+            // @ts-ignore - info is missing on request type?
             return createTRPCContext({ req, res });
         },
     })

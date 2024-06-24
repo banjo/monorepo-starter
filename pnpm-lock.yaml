@@ -45,8 +45,8 @@ importers:
   apps/api:
     dependencies:
       '@trpc/server':
-        specifier: ^10.43.3
-        version: 10.45.1
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421
       cors:
         specifier: ^2.8.5
         version: 2.8.5
@@ -95,7 +95,7 @@ importers:
         version: 1.9.9
       tsup:
         specifier: ^7.2.0
-        version: 7.3.0(postcss@8.4.35)(typescript@5.3.3)
+        version: 7.3.0
       tsx:
         specifier: ^4.1.2
         version: 4.7.1
@@ -109,17 +109,17 @@ importers:
         specifier: ^1.0.3
         version: 1.0.3
       '@tanstack/react-query':
-        specifier: ^4.35.3
-        version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^5.45.1
+        version: 5.45.1(react@18.2.0)
       '@trpc/client':
-        specifier: ^10.43.3
-        version: 10.45.1(@trpc/server@10.45.1)
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421(@trpc/server@11.0.0-rc.421)
       '@trpc/react-query':
-        specifier: ^10.43.3
-        version: 10.45.1(@tanstack/react-query@4.36.1)(@trpc/client@10.45.1)(@trpc/server@10.45.1)(react-dom@18.2.0)(react@18.2.0)
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421(@tanstack/react-query@5.45.1)(@trpc/client@11.0.0-rc.421)(@trpc/server@11.0.0-rc.421)(react-dom@18.2.0)(react@18.2.0)
       '@trpc/server':
-        specifier: ^10.43.3
-        version: 10.45.1
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421
       firebase:
         specifier: ^10.6.0
         version: 10.8.0
@@ -228,7 +228,7 @@ importers:
         version: 4.5.2(@types/node@20.11.20)
       vite-tsconfig-paths:
         specifier: ^4.2.1
-        version: 4.3.1(typescript@5.3.3)(vite@4.5.2)
+        version: 4.3.1(vite@4.5.2)
 
   packages/common:
     dependencies:
@@ -236,11 +236,11 @@ importers:
         specifier: ^0.1.3
         version: 0.1.3
       '@trpc/client':
-        specifier: ^10.43.3
-        version: 10.45.1(@trpc/server@10.45.1)
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421(@trpc/server@11.0.0-rc.421)
       '@trpc/server':
-        specifier: ^10.43.3
-        version: 10.45.1
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421
       dotenv:
         specifier: ^16.3.1
         version: 16.4.5
@@ -305,11 +305,11 @@ importers:
   packages/server:
     dependencies:
       '@trpc/client':
-        specifier: ^10.43.3
-        version: 10.45.1(@trpc/server@10.45.1)
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421(@trpc/server@11.0.0-rc.421)
       '@trpc/server':
-        specifier: ^10.43.3
-        version: 10.45.1
+        specifier: 11.0.0-rc.421
+        version: 11.0.0-rc.421
       change-case:
         specifier: ^5.1.2
         version: 5.4.3
@@ -2953,26 +2953,17 @@ packages:
       - typescript
     dev: false
 
-  /@tanstack/query-core@4.36.1:
-    resolution: {integrity: sha512-DJSilV5+ytBP1FbFcEJovv4rnnm/CokuVvrBEtW/Va9DvuJ3HksbXUJEpI0aV1KtuL4ZoO9AVE6PyNLzF7tLeA==}
+  /@tanstack/query-core@5.45.0:
+    resolution: {integrity: sha512-RVfIZQmFUTdjhSAAblvueimfngYyfN6HlwaJUPK71PKd7yi43Vs1S/rdimmZedPWX/WGppcq/U1HOj7O7FwYxw==}
     dev: false
 
-  /@tanstack/react-query@4.36.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-y7ySVHFyyQblPl3J3eQBWpXZkliroki3ARnBKsdJchlgt7yJLRDUcf4B8soufgiYt3pEQIkBWBx1N9/ZPIeUWw==}
+  /@tanstack/react-query@5.45.1(react@18.2.0):
+    resolution: {integrity: sha512-mYYfJujKg2kxmkRRjA6nn4YKG3ITsKuH22f1kteJ5IuVQqgKUgbaSQfYwVP0gBS05mhwxO03HVpD0t7BMN7WOA==}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
+      react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 4.36.1
+      '@tanstack/query-core': 5.45.0
       react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
   /@tootallnate/once@2.0.0:
@@ -2982,14 +2973,6 @@ packages:
     dev: false
     optional: true
 
-  /@trpc/client@10.45.1(@trpc/server@10.45.1):
-    resolution: {integrity: sha512-nVbAk1xpIiI64WgzXGgfxPOGgHoYvffn1IsjV1D/Ri7DL4BKuo2qtZ7UQ+OuHkzH2M8j4ikSVBDpk545fOdvpw==}
-    peerDependencies:
-      '@trpc/server': 10.45.1
-    dependencies:
-      '@trpc/server': 10.45.1
-    dev: false
-
   /@trpc/client@11.0.0-next-beta.294(@trpc/server@11.0.0-next-beta.294):
     resolution: {integrity: sha512-9rK+bwg7TPNsvisDAanaAiR2TYmgFA2zNll4TexUGKQaQ09dt6ZPdFDqWIZqa33cyoXeK9Z5LQptr3NVfaSjNA==}
     peerDependencies:
@@ -2998,28 +2981,36 @@ packages:
       '@trpc/server': 11.0.0-next-beta.294
     dev: false
 
-  /@trpc/react-query@10.45.1(@tanstack/react-query@4.36.1)(@trpc/client@10.45.1)(@trpc/server@10.45.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-48OOMpwVjQFUQJqlp9/tW1lqESZg9YEqB5iVci7mYaDzZPEs/YUcV85XKvYzgeW+7K9oShX/JMVce8muON/6uQ==}
+  /@trpc/client@11.0.0-rc.421(@trpc/server@11.0.0-rc.421):
+    resolution: {integrity: sha512-Ek9g3EEDtNeU35qgys1M7slyQPjwnAX2hHs8JN2AIXjDyfoT8n+ZdLJlJ8n9aoyGyO2LCFfbfyGhi3MeTMNHtg==}
     peerDependencies:
-      '@tanstack/react-query': ^4.18.0
-      '@trpc/client': 10.45.1
-      '@trpc/server': 10.45.1
-      react: '>=16.8.0'
-      react-dom: '>=16.8.0'
+      '@trpc/server': 11.0.0-rc.421+bce4f97e9
     dependencies:
-      '@tanstack/react-query': 4.36.1(react-dom@18.2.0)(react@18.2.0)
-      '@trpc/client': 10.45.1(@trpc/server@10.45.1)
-      '@trpc/server': 10.45.1
+      '@trpc/server': 11.0.0-rc.421
+    dev: false
+
+  /@trpc/react-query@11.0.0-rc.421(@tanstack/react-query@5.45.1)(@trpc/client@11.0.0-rc.421)(@trpc/server@11.0.0-rc.421)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-xoArO8tqzDDch4e2aH48bZ0SVHMpstsuhk/S0qTB1WybMV1pjZDnT/9qDQY8WwEkaqdVk/7BXXf94Kg5REAIpA==}
+    peerDependencies:
+      '@tanstack/react-query': ^5.40.0
+      '@trpc/client': 11.0.0-rc.421+bce4f97e9
+      '@trpc/server': 11.0.0-rc.421+bce4f97e9
+      react: '>=18.2.0'
+      react-dom: '>=18.2.0'
+    dependencies:
+      '@tanstack/react-query': 5.45.1(react@18.2.0)
+      '@trpc/client': 11.0.0-rc.421(@trpc/server@11.0.0-rc.421)
+      '@trpc/server': 11.0.0-rc.421
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@trpc/server@10.45.1:
-    resolution: {integrity: sha512-KOzBEVaHW9IxEedUP9E50y0tYxAuvlzyjn80Bpemw4rcNbT4WtJnhkFPUY+qDJl7Crt3B/oY2qMgSxVWi9toLg==}
-    dev: false
-
   /@trpc/server@11.0.0-next-beta.294:
     resolution: {integrity: sha512-wwz78kfl4c8WQ3ytjzYf3SM8uxhvhSRYVxqqChPM+IbDb9scfNyEsZOUzSWds8brFNgO3LHeHYkP0l8S4YdDXA==}
+    dev: false
+
+  /@trpc/server@11.0.0-rc.421:
+    resolution: {integrity: sha512-4epaOaNiqvIDuyA7FfjthKcUvFMfFoKwBTUzhu/xLGeSClgLZ0v+1HWRPPWGFLMu1ZKLHMeeySXhnY4yLFlYjw==}
     dev: false
 
   /@types/babel__core@7.20.5:
@@ -9031,7 +9022,7 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /tsconfck@3.0.2(typescript@5.3.3):
+  /tsconfck@3.0.2:
     resolution: {integrity: sha512-6lWtFjwuhS3XI4HsX4Zg0izOI3FU/AI9EGVlPEUMDIhvLPMD4wkiof0WCoDgW7qY+Dy198g4d9miAqUHWHFH6Q==}
     engines: {node: ^18 || >=20}
     hasBin: true
@@ -9040,8 +9031,6 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
-    dependencies:
-      typescript: 5.3.3
     dev: true
 
   /tsconfig-paths@3.15.0:
@@ -9057,6 +9046,42 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+
+  /tsup@7.3.0:
+    resolution: {integrity: sha512-Ja1eaSRrE+QarmATlNO5fse2aOACYMBX+IZRKy1T+gpyH+jXgRrl5l4nHIQJQ1DoDgEjHDTw8cpE085UdBZuWQ==}
+    engines: {node: '>=18'}
+    deprecated: Breaking node 16
+    hasBin: true
+    peerDependencies:
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 4.0.2(esbuild@0.19.12)
+      cac: 6.7.14
+      chokidar: 3.6.0
+      debug: 4.3.4
+      esbuild: 0.19.12
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 4.0.2(postcss@8.4.35)
+      resolve-from: 5.0.0
+      rollup: 4.12.0
+      source-map: 0.8.0-beta.0
+      sucrase: 3.35.0
+      tree-kill: 1.2.2
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
 
   /tsup@7.3.0(postcss@8.4.35)(typescript@5.3.3):
     resolution: {integrity: sha512-Ja1eaSRrE+QarmATlNO5fse2aOACYMBX+IZRKy1T+gpyH+jXgRrl5l4nHIQJQ1DoDgEjHDTw8cpE085UdBZuWQ==}
@@ -9443,7 +9468,7 @@ packages:
       - terser
     dev: true
 
-  /vite-tsconfig-paths@4.3.1(typescript@5.3.3)(vite@4.5.2):
+  /vite-tsconfig-paths@4.3.1(vite@4.5.2):
     resolution: {integrity: sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==}
     peerDependencies:
       vite: '*'
@@ -9453,7 +9478,7 @@ packages:
     dependencies:
       debug: 4.3.4
       globrex: 0.1.2
-      tsconfck: 3.0.2(typescript@5.3.3)
+      tsconfck: 3.0.2
       vite: 4.5.2(@types/node@20.11.20)
     transitivePeerDependencies:
       - supports-color
