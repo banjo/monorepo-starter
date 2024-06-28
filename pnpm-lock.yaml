@@ -17,12 +17,18 @@ importers:
       '@pkg-name/prettier-config':
         specifier: workspace:*
         version: link:tooling/prettier
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.4.5
       eslint:
         specifier: ^8.53.0
         version: 8.57.0
       hoks:
         specifier: ^0.1.17
         version: 0.1.17(typescript@5.3.3)
+      picocolors:
+        specifier: ^1.0.1
+        version: 1.0.1
       prettier:
         specifier: ^3.1.0
         version: 3.2.5
@@ -95,7 +101,7 @@ importers:
         version: 1.9.9
       tsup:
         specifier: ^7.2.0
-        version: 7.3.0
+        version: 7.3.0(postcss@8.4.35)(typescript@5.3.3)
       tsx:
         specifier: ^4.1.2
         version: 4.7.1
@@ -228,7 +234,7 @@ importers:
         version: 4.5.2(@types/node@20.11.20)
       vite-tsconfig-paths:
         specifier: ^4.2.1
-        version: 4.3.1(vite@4.5.2)
+        version: 4.3.1(typescript@5.3.3)(vite@4.5.2)
 
   packages/common:
     dependencies:
@@ -5946,7 +5952,7 @@ packages:
       execa: 7.2.0
       globby: 13.2.2
       ora: 6.3.1
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       prompts: 2.4.2
       ttys: 0.0.3
     transitivePeerDependencies:
@@ -6198,7 +6204,7 @@ packages:
       json5: 2.2.3
       minimatch: 7.4.6
       ora: 6.3.1
-      picocolors: 1.0.0
+      picocolors: 1.0.1
       prompts: 2.4.2
       staged-git-files: 1.3.0
     transitivePeerDependencies:
@@ -7557,6 +7563,10 @@ packages:
 
   /picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
+
+  /picocolors@1.0.1:
+    resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
+    dev: true
 
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -9022,7 +9032,7 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /tsconfck@3.0.2:
+  /tsconfck@3.0.2(typescript@5.3.3):
     resolution: {integrity: sha512-6lWtFjwuhS3XI4HsX4Zg0izOI3FU/AI9EGVlPEUMDIhvLPMD4wkiof0WCoDgW7qY+Dy198g4d9miAqUHWHFH6Q==}
     engines: {node: ^18 || >=20}
     hasBin: true
@@ -9031,6 +9041,8 @@ packages:
     peerDependenciesMeta:
       typescript:
         optional: true
+    dependencies:
+      typescript: 5.3.3
     dev: true
 
   /tsconfig-paths@3.15.0:
@@ -9046,42 +9058,6 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
-
-  /tsup@7.3.0:
-    resolution: {integrity: sha512-Ja1eaSRrE+QarmATlNO5fse2aOACYMBX+IZRKy1T+gpyH+jXgRrl5l4nHIQJQ1DoDgEjHDTw8cpE085UdBZuWQ==}
-    engines: {node: '>=18'}
-    deprecated: Breaking node 16
-    hasBin: true
-    peerDependencies:
-      '@swc/core': ^1
-      postcss: ^8.4.12
-      typescript: '>=4.5.0'
-    peerDependenciesMeta:
-      '@swc/core':
-        optional: true
-      postcss:
-        optional: true
-      typescript:
-        optional: true
-    dependencies:
-      bundle-require: 4.0.2(esbuild@0.19.12)
-      cac: 6.7.14
-      chokidar: 3.6.0
-      debug: 4.3.4
-      esbuild: 0.19.12
-      execa: 5.1.1
-      globby: 11.1.0
-      joycon: 3.1.1
-      postcss-load-config: 4.0.2(postcss@8.4.35)
-      resolve-from: 5.0.0
-      rollup: 4.12.0
-      source-map: 0.8.0-beta.0
-      sucrase: 3.35.0
-      tree-kill: 1.2.2
-    transitivePeerDependencies:
-      - supports-color
-      - ts-node
-    dev: true
 
   /tsup@7.3.0(postcss@8.4.35)(typescript@5.3.3):
     resolution: {integrity: sha512-Ja1eaSRrE+QarmATlNO5fse2aOACYMBX+IZRKy1T+gpyH+jXgRrl5l4nHIQJQ1DoDgEjHDTw8cpE085UdBZuWQ==}
@@ -9468,7 +9444,7 @@ packages:
       - terser
     dev: true
 
-  /vite-tsconfig-paths@4.3.1(vite@4.5.2):
+  /vite-tsconfig-paths@4.3.1(typescript@5.3.3)(vite@4.5.2):
     resolution: {integrity: sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==}
     peerDependencies:
       vite: '*'
@@ -9478,7 +9454,7 @@ packages:
     dependencies:
       debug: 4.3.4
       globrex: 0.1.2
-      tsconfck: 3.0.2
+      tsconfck: 3.0.2(typescript@5.3.3)
       vite: 4.5.2(@types/node@20.11.20)
     transitivePeerDependencies:
       - supports-color
