@@ -1,97 +1,78 @@
-import { auth } from "@/lib/firebase";
 import { isLocalDevelopment } from "@/utils/runtime";
-import { Maybe, raise } from "@banjoanton/utils";
-import { Env } from "@pkg-name/common";
-import {
-    GoogleAuthProvider,
-    User,
-    onAuthStateChanged,
-    signInWithPopup,
-    signOut,
-} from "firebase/auth";
+import { attemptAsync } from "@banjoanton/utils";
+import { AuthInfo, CoreResponse, Env } from "@pkg-name/common";
 
-export type AuthState = {
-    user: User | null;
-    token: string | undefined;
+const env = Env.client();
+
+export type AuthState = AuthInfo & {
+    isAuthenticated: boolean;
+};
+
+export const emptyAuthState: AuthState = {
+    isAuthenticated: false,
+    email: "",
 };
 
 class AuthService {
-    private user: User | null = null;
-    private token: Maybe<string> = undefined;
+    private authState: AuthState;
     private listeners: Array<(state: AuthState) => void> = [];
 
     constructor() {
-        this.user = null;
-        this.token = undefined;
-        this.initAuthStateListener();
+        this.authState = emptyAuthState;
         this.setupDevelopment();
     }
 
     private setupDevelopment() {
         if (isLocalDevelopment()) {
-            const uid =
-                Env.client().VITE_DEVELOPMENT_UID ?? raise("VITE_DEVELOPMENT_UID not specified");
-
-            this.user = { uid } as User;
-            this.token = "development";
+            this.authState = {
+                isAuthenticated: true,
+                email: "local@local.com",
+            };
             this.notifyListeners();
         }
     }
 
-    private async initAuthStateListener() {
-        if (isLocalDevelopment()) return;
+    public async checkIfUserIsAuthenticated() {
+        if (isLocalDevelopment()) {
+            return;
+        }
 
-        onAuthStateChanged(auth, async currentUser => {
-            this.user = currentUser;
-            if (currentUser) {
-                await this.refreshToken();
-            } else {
-                this.token = undefined;
-            }
-            this.notifyListeners();
-        });
+        const authUrl = `${env.VITE_API_URL}/auth`;
+
+        const response = await attemptAsync<CoreResponse<AuthInfo>>(
+            async () =>
+                await fetch(authUrl, {
+                    credentials: "include",
+                }).then(res => res.json())
+        );
+
+        if (response?.success) {
+            this.authState = {
+                isAuthenticated: true,
+                ...response.data,
+            };
+        } else {
+            this.authState = emptyAuthState;
+        }
+
+        this.notifyListeners();
     }
 
-    public async signInWithGoogle() {
-        const provider = new GoogleAuthProvider();
-        try {
-            const result = await signInWithPopup(auth, provider);
-            this.user = result.user;
-            await this.refreshToken();
-            this.notifyListeners();
-        } catch (error) {
-            console.error(error);
-        }
+    public signInWithGithub() {
+        window.location.href = `${env.VITE_API_URL}/login/github`;
     }
 
     public async signOut() {
-        try {
-            await signOut(auth);
-            this.user = null;
-            this.token = undefined;
-            this.notifyListeners();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    public async refreshToken() {
-        if (isLocalDevelopment() || !this.user) return;
-
-        try {
-            const newToken = await this.user.getIdToken(true);
-            this.token = newToken;
-            this.notifyListeners();
-        } catch (error) {
-            console.error("Error refreshing token", error);
-        }
+        const signOutUrl = `${env.VITE_API_URL}/logout`;
+        fetch(signOutUrl, {
+            credentials: "include",
+        });
+        this.authState = emptyAuthState;
+        this.notifyListeners();
     }
 
     public getAuthState(): AuthState {
-        return {
-            user: this.user,
-            token: this.token,
-        };
+        return this.authState;
     }
 
     public addAuthStateListener(listener: (state: AuthState) => void) {

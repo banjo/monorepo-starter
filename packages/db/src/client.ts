@@ -17,7 +17,7 @@ if (typeof window === "undefined") {
         prisma = global.prisma;
     }
 }
-//@ts-ignore
+// @ts-ignore
 export { prisma };
 
 export * from "@prisma/client";

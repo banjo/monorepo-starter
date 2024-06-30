@@ -1,120 +1,29 @@
-/**
- * YOU PROBABLY DON'T NEED TO EDIT THIS FILE, UNLESS:
- * 1. You want to modify request context (see Part 1)
- * 2. You want to create a new middleware or type of procedure (see Part 3)
- *
- * tl;dr - this is where all the tRPC server stuff is created and plugged in.
- * The pieces you will need to use are documented accordingly near the end
- */
-import { wrapAsync } from "@banjoanton/utils";
-import { Cause } from "@pkg-name/common";
-import { auth } from "@pkg-name/firebase-server";
-import { TRPCError, initTRPC } from "@trpc/server";
-import * as trpcExpress from "@trpc/server/adapters/express";
+import { uuid } from "@banjoanton/utils";
+import { initTRPC, TRPCError } from "@trpc/server";
+import { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import superjson from "superjson";
 import { ZodError } from "zod";
 import { createContextLogger } from "../lib/context-logger";
 import { NodeContext } from "../lib/node-context";
-import { getLocalDevelopmentId, isLocalDevelopment } from "../lib/runtime";
-import { UserRepository } from "../repositories/user-repository";
+import { Cause } from "@pkg-name/common";
 
 const logger = createContextLogger("auth-middleware");
 
-/**
- * 1. CONTEXT
- *
- * This section defines the "contexts" that are available in the backend API
- *
- * These allow you to access things like the database, the session, etc, when
- * processing a request
- *
- */
-
-/**
- * This is the actual context you'll use in your router. It will be used to
- * process every request that goes through your tRPC endpoint
- * @link https://trpc.io/docs/context
- */
-export const createTRPCContext = async ({ req, res }: trpcExpress.CreateExpressContextOptions) => {
-    const requestId = NodeContext.getRequestId();
+export const createTRPCContext = async ({ req, res }: CreateExpressContextOptions) => {
     const createResponse = (userId?: number, expired = false) => ({
         req,
         res,
         userId,
         expired,
-        requestId,
     });
 
-    if (isLocalDevelopment()) {
-        return createResponse(getLocalDevelopmentId());
+    const { user } = res.locals;
+    if (user) {
+        NodeContext.setUserId(user.id);
     }
-
-    const authHeader = req?.headers.authorization;
-    if (!authHeader) {
-        logger.info("No auth header");
-        return createResponse();
-    }
-
-    if (!authHeader?.startsWith("Bearer ")) {
-        logger.info("No bearer token");
-        return createResponse();
-    }
-
-    const idToken = authHeader.split("Bearer ")[1];
-
-    if (!idToken) {
-        logger.info("No id token");
-        return createResponse();
-    }
-
-    const [decodedToken, error] = await wrapAsync(async () => await auth.verifyIdToken(idToken));
-
-    if (error) {
-        logger.error({ error }, "Could not verify id token");
-        return createResponse(undefined, true);
-    }
-
-    const userIdResponse = await UserRepository.getIdByExternalId(decodedToken.uid);
-
-    if (!userIdResponse.success) {
-        logger.info("No user id in database, creating user");
-
-        const externalId = decodedToken.uid;
-        const email = decodedToken.email;
-        const name = decodedToken.name;
-
-        if (!externalId || !email || !name) {
-            logger.error("No externalId, email or name in decoded token");
-            return createResponse();
-        }
-
-        const user = await UserRepository.createUser({
-            externalId,
-            email,
-            name,
-        });
-
-        if (!user.success) {
-            logger.error("Could not create user");
-            return createResponse();
-        }
-
-        logger.info("Created user with id: ", user.data.id);
-
-        NodeContext.setUserId(user.data.id);
-        return createResponse(user.data.id);
-    }
-
-    NodeContext.setUserId(userIdResponse.data);
-    return createResponse(userIdResponse.data);
+    return createResponse(user?.id);
 };
 
-/**
- * 2. INITIALIZATION
- *
- * This is where the trpc api is initialized, connecting the context and
- * transformer
- */
 const t = initTRPC.context<typeof createTRPCContext>().create({
     transformer: superjson,
     errorFormatter({ shape, error }) {
@@ -131,34 +40,30 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
     },
 });
 
-/**
- * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
- *
- * These are the pieces you use to build your tRPC API. You should import these
- * a lot in the /src/server/api/routers folder
- */
-
-/**
- * This is how you create new routers and subrouters in your tRPC API
- * @see https://trpc.io/docs/router
- */
 export const createTRPCRouter = t.router;
 
-/**
- * Public (unauthed) procedure
- *
- * This is the base piece you use to build new queries and mutations on your
- * tRPC API. It does not guarantee that a user querying is authorized, but you
- * can still access user session data if they are logged in
- */
-export const publicProcedure = t.procedure;
+const contextMiddleware = t.middleware(({ next, ctx }) => {
+    const contextExists = NodeContext.exists();
 
-/**
- * Reusable middleware that enforces users are logged in before running the
- * procedure
- */
-const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
+    // Context already exists in HTTP request from Express
+    if (contextExists) {
+        return next();
+    }
+
+    return NodeContext.context.run(NodeContext.store, async () => {
+        NodeContext.setRequestId(uuid());
+
+        if (ctx.userId) {
+            NodeContext.setUserId(ctx.userId);
+        }
+
+        return await next();
+    });
+});
+
+const enforceUserIsAuthenticated = t.middleware(({ ctx, next }) => {
     if (ctx.expired) {
+        logger.error("Token expired");
         throw new TRPCError({
             code: "UNAUTHORIZED",
             cause: Cause.EXPIRED_TOKEN,
@@ -167,6 +72,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     }
 
     if (!ctx.userId) {
+        logger.error("No user id in context");
         throw new TRPCError({ code: "UNAUTHORIZED" });
     }
 
@@ -178,13 +84,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
     });
 });
 
-/**
- * Protected (authed) procedure
- *
- * If you want a query or mutation to ONLY be accessible to logged in users, use
- * this. It verifies the session is valid and guarantees ctx.session.user is not
- * null
- *
- * @see https://trpc.io/docs/procedures
- */
-export const protectedProcedure = t.procedure.use(enforceUserIsAuthed);
+export const publicProcedure = t.procedure.use(contextMiddleware);
+export const protectedProcedure = t.procedure
+    .use(enforceUserIsAuthenticated)
+    .use(contextMiddleware);

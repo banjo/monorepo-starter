@@ -1,7 +1,7 @@
 import pino from "pino";
 import { NodeContext } from "./node-context";
 import { invariant } from "@banjoanton/utils";
-import { Env, createLogger } from "@pkg-name/common";
+import { createLogger, Env } from "@pkg-name/common";
 
 const getNamespace = () => ({
     requestId: NodeContext.getRequestId(),

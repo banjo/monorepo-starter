@@ -25,7 +25,7 @@ const getUserId = (): Maybe<number> => context.getStore()?.userId;
 const setUserId = (userId: number) => setStoreValue("userId", userId);
 
 // @ts-ignore
-const setupContext = (req, res, next) => {
+const setupExpressContext = (req, res, next) => {
     context.run(store, () => {
         const requestId = uuid();
         setRequestId(requestId);
@@ -33,9 +33,15 @@ const setupContext = (req, res, next) => {
     });
 };
 
+const exists = () => context.getStore() !== undefined;
+
 export const NodeContext = {
-    setupContext,
+    setupExpressContext,
     getRequestId,
     getUserId,
     setUserId,
+    setRequestId,
+    context,
+    store,
+    exists,
 };

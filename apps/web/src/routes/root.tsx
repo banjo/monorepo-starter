@@ -23,8 +23,7 @@ const createAppRouter = (isAuthenticated: boolean) =>
     ]);
 
 export function Root() {
-    const { userId } = useAuth();
-    const isAuthenticated = !!userId;
+    const { isAuthenticated } = useAuth();
     const appRouter = createAppRouter(isAuthenticated);
 
     return <RouterProvider router={appRouter} />;

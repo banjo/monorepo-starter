@@ -28,13 +28,14 @@ const allServer = () => {
 
 const ServerEnvSchema = z.object({
     DATABASE_URL: z.string(),
-    FIREBASE_ADMIN_KEY: z.string(),
     CLIENT_URL: z.string().url(),
     NODE_ENV: z.enum(["development", "production"]),
     LOCAL_DEVELOPMENT: z.enum(["true", "false"]).optional(),
     DEVELOPMENT_UID: z.string().optional(),
     PORT: z.string(),
     LOG_LEVEL: z.enum(LOG_LEVELS).optional(),
+    GITHUB_CLIENT_ID: z.string(),
+    GITHUB_CLIENT_SECRET: z.string(),
     // AXIOM_DATASET: z.string(),
     // AXIOM_TOKEN: z.string(),
 });
@@ -56,7 +57,6 @@ const ClientEnvSchema = z.object({
     VITE_API_URL: z.string().url(),
     VITE_DEVELOPMENT_UID: z.string().optional(),
     VITE_LOCAL_DEVELOPMENT: z.enum(["true", "false"]).optional(),
-    VITE_FIREBASE_CONFIG: z.string(),
     LOG_LEVEL: z.enum(LOG_LEVELS).optional(),
 });
 

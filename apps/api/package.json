@@ -20,7 +20,6 @@
         "@pkg-name/common": "workspace:*",
         "@pkg-name/db": "workspace:*",
         "@pkg-name/eslint-config": "workspace:*",
-        "@pkg-name/firebase-server": "workspace:*",
         "@pkg-name/server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
         "@types/cors": "^2.8.16",
@@ -35,7 +34,6 @@
         "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
-        "firebase-admin": "^11.11.0",
         "zod": "^3.22.4"
     },
     "eslintConfig": {

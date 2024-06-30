@@ -5,14 +5,36 @@ datasource db {
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  email      String   @unique
-  name       String?
-  externalId String   @unique
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  email        String         @unique
+  name         String?
+  avatarUrl    String?
+  sessions     Session[]
+  OauthAccount OauthAccount[]
+}
+
+model Session {
+  id        String   @id
+  userId    Int
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+}
+
+model OauthAccount {
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  userId         Int
+  provider       String // github, google, etc
+  providerUserId String // id from the provider
+  user           User     @relation(fields: [userId], references: [id])
+  avatarUrl      String?
+  name           String?
+
+  @@id([provider, providerUserId]) // composite primary key
 }
