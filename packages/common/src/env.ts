@@ -30,7 +30,7 @@ const ServerEnvSchema = z.object({
     DATABASE_URL: z.string(),
     CLIENT_URL: z.string().url(),
     NODE_ENV: z.enum(["development", "production"]),
-    LOCAL_DEVELOPMENT: z.enum(["true", "false"]).optional(),
+    LOCAL_DEVELOPMENT: z.boolean().optional(),
     DEVELOPMENT_UID: z.string().optional(),
     PORT: z.string(),
     LOG_LEVEL: z.enum(LOG_LEVELS).optional(),
@@ -56,7 +56,7 @@ const server = () => {
 const ClientEnvSchema = z.object({
     VITE_API_URL: z.string().url(),
     VITE_DEVELOPMENT_UID: z.string().optional(),
-    VITE_LOCAL_DEVELOPMENT: z.enum(["true", "false"]).optional(),
+    VITE_LOCAL_DEVELOPMENT: z.boolean().optional(),
     LOG_LEVEL: z.enum(LOG_LEVELS).optional(),
 });
 
