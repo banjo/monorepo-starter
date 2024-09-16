@@ -7,7 +7,7 @@
     "scripts": {
         "run": "tsx src/index.ts",
         "dev": "tsx watch src/index.ts",
-        "lint": "eslint . --ext .ts",
+        "lint": "eslint .",
         "build": "tsup",
         "clean": "rimraf node_modules dist",
         "typecheck": "tsc --noEmit"
@@ -19,7 +19,6 @@
         "@banjoanton/utils": "^0.1.77",
         "@pkg-name/common": "workspace:*",
         "@pkg-name/db": "workspace:*",
-        "@pkg-name/eslint-config": "workspace:*",
         "@pkg-name/server": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
         "@types/cors": "^2.8.16",
@@ -35,9 +34,5 @@
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "zod": "^3.22.4"
-    },
-    "eslintConfig": {
-        "root": true,
-        "extends": "@pkg-name/eslint-config/base"
     }
 }

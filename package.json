@@ -26,10 +26,10 @@
     "license": "ISC",
     "devDependencies": {
         "@antfu/ni": "^0.21.9",
-        "@pkg-name/eslint-config": "workspace:*",
+        "@banjoanton/eslint-config": "^0.2.10",
         "@pkg-name/prettier-config": "workspace:*",
         "dotenv": "^16.3.1",
-        "eslint": "^8.53.0",
+        "eslint": "^9.10.0",
         "hoks": "^0.1.17",
         "picocolors": "^1.0.1",
         "prettier": "^3.1.0",
@@ -40,11 +40,5 @@
         "zx": "^7.2.3"
     },
     "packageManager": "pnpm@8.7.4",
-    "prettier": "@pkg-name/prettier-config",
-    "eslintConfig": {
-        "root": true,
-        "extends": [
-            "@pkg-name/eslint-config/base"
-        ]
-    }
+    "prettier": "@pkg-name/prettier-config"
 }

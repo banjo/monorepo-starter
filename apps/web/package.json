@@ -7,7 +7,7 @@
         "dev": "vite --port 3005",
         "build": "tsc --noEmit && vite build",
         "typecheck": "tsc --noEmit",
-        "lint": "eslint . --ext ts,tsx",
+        "lint": "eslint .",
         "clean": "rimraf dist node_modules .turbo",
         "preview": "vite preview"
     },
@@ -33,7 +33,6 @@
         "@banjoanton/utils": "^0.1.77",
         "@pkg-name/common": "workspace:*",
         "@pkg-name/db": "workspace:*",
-        "@pkg-name/eslint-config": "workspace:*",
         "@pkg-name/server": "workspace:*",
         "@pkg-name/tailwind-config": "workspace:*",
         "@pkg-name/tsconfig": "workspace:*",
@@ -45,19 +44,9 @@
         "@vitejs/plugin-react": "^4.1.1",
         "api": "workspace:*",
         "autoprefixer": "^10.4.16",
-        "eslint": "^8.53.0",
-        "eslint-plugin-react-hooks": "^4.6.0",
         "postcss": "^8.4.31",
         "tailwindcss": "^3.3.5",
         "vite": "^4.5.0",
         "vite-tsconfig-paths": "^4.2.1"
-    },
-    "eslintConfig": {
-        "root": true,
-        "extends": [
-            "@pkg-name/eslint-config/react",
-            "@pkg-name/eslint-config/base",
-            "plugin:react-hooks/recommended"
-        ]
     }
 }
