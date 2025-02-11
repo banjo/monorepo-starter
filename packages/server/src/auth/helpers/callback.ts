@@ -2,7 +2,7 @@ import { Result } from "@banjoanton/utils";
 import { OAuth2Provider, OAuth2ProviderWithPKCE } from "arctic";
 import { parseCookies } from "oslo/cookie";
 import { FetchUser } from "./user-info";
-import { Env } from "common";
+import { Env } from "@pkg-name/common";
 import { Request, Response } from "express";
 import { createContextLogger } from "../../lib/context-logger";
 import { lucia } from "../../lib/lucia";

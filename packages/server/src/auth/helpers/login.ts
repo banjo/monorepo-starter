@@ -5,7 +5,7 @@ import {
     OAuth2ProviderWithPKCE,
 } from "arctic";
 import { serializeCookie } from "oslo/cookie";
-import { Env } from "common";
+import { Env } from "@pkg-name/common";
 import { Response } from "express";
 import { HttpResponse } from "../../model/http-response";
 import { MAX_COOKIE_AGE } from "../core";

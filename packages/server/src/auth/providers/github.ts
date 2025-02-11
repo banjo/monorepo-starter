@@ -1,5 +1,5 @@
 import { GitHub } from "arctic";
-import { Env } from "common";
+import { Env } from "@pkg-name/common";
 import { FetchUser, OauthUserInfo } from "../helpers/user-info";
 import { OauthCoreProvider } from "../core";
 import { OauthProvider } from "../providers";

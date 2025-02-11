@@ -1,4 +1,4 @@
-import { AuthInfo } from "common";
+import { AuthInfo } from "@pkg-name/common";
 import { Request, Response } from "express";
 import { createContextLogger } from "../../lib/context-logger";
 import { HttpResponse } from "../../model/http-response";

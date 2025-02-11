@@ -1,5 +1,5 @@
 import { Google } from "arctic";
-import { Env } from "common";
+import { Env } from "@pkg-name/common";
 import { Cookie } from "../models";
 import { OauthProvider } from "../providers";
 import { OauthCoreProvider } from "../core";
