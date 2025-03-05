@@ -1,17 +1,22 @@
 import { GitHub } from "arctic";
-import { Env } from "@pkg-name/common";
+import { Env, Result } from "@pkg-name/common";
 import { FetchUser, OauthUserInfo } from "../helpers/user-info";
 import { OauthCoreProvider } from "../core";
 import { OauthProvider } from "../providers";
 import { Cookie } from "../models";
-import { Result, wrapAsync } from "@banjoanton/utils";
+import { wrapAsync } from "@banjoanton/utils";
 import { ofetch } from "ofetch";
 import { createContextLogger } from "../../lib/context-logger";
 
 const COOKIE_NAME = "github_oauth_state";
 const env = Env.server();
 const logger = createContextLogger("github-auth-provider");
-const provider = new GitHub(env.GITHUB_CLIENT_ID, env.GITHUB_CLIENT_SECRET);
+
+if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
+    logger.error("Missing GitHub client ID or secret");
+}
+
+const provider = new GitHub(env.GITHUB_CLIENT_ID || "", env.GITHUB_CLIENT_SECRET || "");
 
 const fetchUser: FetchUser = async (accessToken: string) => {
     const [githubUserData, error] = await wrapAsync(
@@ -25,7 +30,7 @@ const fetchUser: FetchUser = async (accessToken: string) => {
 
     if (error) {
         logger.error({ error }, "Error fetching user");
-        return Result.error(error.message, "InternalError");
+        return Result.error(error.message);
     }
 
     const parsed = OauthUserInfo.parse(githubUserData);

@@ -7,5 +7,8 @@ export const Landing = () => (
         <Button variant="outline" onClick={() => authService.signInWithGithub()}>
             Sign in with Github
         </Button>
+        <Button variant="outline" onClick={() => authService.signInWithGoogle()}>
+            Sign in with Google
+        </Button>
     </>
 );

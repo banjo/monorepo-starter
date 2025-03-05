@@ -8,6 +8,7 @@ import {
     createContextLogger,
     createTRPCContext,
     GithubAuthProvider,
+    GoogleAuthProvider,
     NodeContext,
     OauthCoreProvider,
     startupLog,
@@ -37,6 +38,8 @@ app.use(
     })
 );
 
+app.get("/login/google/callback", GoogleAuthProvider.callback);
+app.get("/login/google", GoogleAuthProvider.login);
 app.get("/login/github/callback", GithubAuthProvider.callback);
 app.get("/login/github", GithubAuthProvider.login);
 app.get("/logout", OauthCoreProvider.logout);

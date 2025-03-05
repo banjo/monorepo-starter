@@ -34,10 +34,13 @@ const ServerEnvSchema = z.object({
     DEVELOPMENT_UID: z.string().optional(),
     PORT: z.string(),
     LOG_LEVEL: z.enum(LOG_LEVELS).optional(),
-    GITHUB_CLIENT_ID: z.string(),
-    GITHUB_CLIENT_SECRET: z.string(),
+    GITHUB_CLIENT_ID: z.string().optional(),
+    GITHUB_CLIENT_SECRET: z.string().optional(),
     // AXIOM_DATASET: z.string(),
     // AXIOM_TOKEN: z.string(),
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
+    GOOGLE_REDIRECT_URI: z.string(),
 });
 
 const server = () => {
@@ -56,7 +59,7 @@ const server = () => {
 const ClientEnvSchema = z.object({
     VITE_API_URL: z.string().url(),
     VITE_DEVELOPMENT_UID: z.string().optional(),
-    VITE_LOCAL_DEVELOPMENT: z.boolean().optional(),
+    VITE_LOCAL_DEVELOPMENT: z.string().optional(),
     LOG_LEVEL: z.enum(LOG_LEVELS).optional(),
 });
 
