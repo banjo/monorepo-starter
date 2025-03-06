@@ -16,7 +16,7 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@banjoanton/utils": "^0.1.77",
+        "@banjoanton/utils": "^0.1.93",
         "@pkg-name/common": "workspace:*",
         "@pkg-name/db": "workspace:*",
         "@pkg-name/server": "workspace:*",

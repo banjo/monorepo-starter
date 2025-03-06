@@ -10,7 +10,7 @@
         "typecheck": "tsc --noEmit"
     },
     "devDependencies": {
-        "@banjoanton/utils": "^0.1.77",
+        "@banjoanton/utils": "^0.1.93",
         "@types/cookie": "^0.6.0",
         "@pkg-name/common": "workspace:*",
         "@pkg-name/db": "workspace:*",
