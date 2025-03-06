@@ -2,7 +2,8 @@
     "$schema": "https://json.schemastore.org/tsconfig",
     "display": "Library",
     "compilerOptions": {
-        "lib": ["ES2023", "DOM"]
+        "lib": ["ES2023", "DOM"],
+        "verbatimModuleSyntax": false
     },
     "extends": ["@total-typescript/tsconfig/bundler/dom/library-monorepo", "./base.json"]
 }
