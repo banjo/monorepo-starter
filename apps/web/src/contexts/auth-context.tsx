@@ -1,13 +1,15 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { authService, AuthState, emptyAuthState } from "@/services/auth-service";
 import { Loader } from "@pkg-name/ui";
 
 export type AuthContextType = AuthState & {
     isLoading: boolean;
+    signOut: () => void;
 };
 
 const emptyContext: AuthContextType = {
     isLoading: false,
+    signOut: () => {},
     ...emptyAuthState,
 };
 
@@ -37,10 +39,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         };
     }, []);
 
-    const contextValue: AuthContextType = {
-        isLoading,
-        ...authState,
+    const signOut = async () => {
+        await authService.signOut();
+        window.location.href = "/login";
     };
+
+    const contextValue = useMemo(
+        () => ({
+            isLoading,
+            signOut,
+            ...authState,
+        }),
+        [isLoading, authState]
+    );
 
     return (
         <AuthContext.Provider value={contextValue}>
