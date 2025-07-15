@@ -1,4 +1,4 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsdown";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -9,5 +9,4 @@ export default defineConfig({
     format: ["esm", "cjs"],
     minify: isProduction,
     sourcemap: true,
-    external: ["@prisma/client", "pino"],
 });

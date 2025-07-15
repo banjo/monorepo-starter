@@ -1,38 +1,38 @@
 {
-    "name": "api",
-    "version": "1.0.0",
-    "description": "",
-    "main": "src/index.ts",
-    "type": "module",
-    "scripts": {
-        "run": "tsx src/index.ts",
-        "dev": "tsx watch src/index.ts",
-        "lint": "eslint .",
-        "build": "tsup",
-        "clean": "rimraf node_modules dist",
-        "typecheck": "tsc --noEmit"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@banjoanton/utils": "^1.1.8",
-        "@pkg-name/common": "workspace:*",
-        "@pkg-name/db": "workspace:*",
-        "@pkg-name/server": "workspace:*",
-        "@pkg-name/tsconfig": "workspace:*",
-        "@types/cors": "^2.8.19",
-        "@types/express": "^5.0.3",
-        "@types/morgan": "^1.9.10",
-        "tsup": "^8.5.0",
-        "tsx": "^4.20.3",
-        "vitest": "^3.2.4"
-    },
-    "dependencies": {
-        "@trpc/server": "11.4.3",
-        "cors": "^2.8.5",
-        "dotenv": "^17.2.0",
-        "express": "^5.1.0",
-        "zod": "^4.0.5"
-    }
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "run": "tsx src/index.ts",
+    "dev": "tsx watch src/index.ts",
+    "lint": "eslint .",
+    "build": "tsdown",
+    "clean": "rimraf node_modules dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@banjoanton/utils": "^1.1.8",
+    "@pkg-name/common": "workspace:*",
+    "@pkg-name/db": "workspace:*",
+    "@pkg-name/server": "workspace:*",
+    "@pkg-name/tsconfig": "workspace:*",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/morgan": "^1.9.10",
+    "tsdown": "^0.12.9",
+    "tsx": "^4.20.3",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "@trpc/server": "11.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "zod": "^4.0.5"
+  }
 }

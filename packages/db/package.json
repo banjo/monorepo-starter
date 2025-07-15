@@ -1,36 +1,36 @@
 {
-    "name": "@pkg-name/db",
-    "version": "1.0.0",
-    "license": "MIT",
-    "type": "module",
-    "main": "./src/index.ts",
-    "types": "./src/index.ts",
-    "files": [
-        "dist/**"
-    ],
-    "scripts": {
-        "build": "pnpm run db:generate && tsup",
-        "dev": "tsup --watch --clean",
-        "clean": "rimraf node_modules dist",
-        "typecheck": "tsc --noEmit",
-        "db:safe": "node ../../scripts/db.mjs",
-        "db:seed": "pnpm exec prisma db seed",
-        "db:migrate:dev": "pnpm run db:safe && pnpm exec prisma migrate dev && pnpm run db:generate",
-        "db:migrate:prod": "pnpm exec prisma migrate deploy",
-        "db:generate": "pnpm exec prisma generate",
-        "db:push": "pnpm run db:safe && pnpm exec prisma db push --skip-generate",
-        "db:reset": "pnpm run db:safe && pnpm exec prisma migrate reset --skip-seed --skip-generate --force",
-        "db:full-reset": "pnpm run db:reset && pnpm run db:push && pnpm run db:generate && pnpm run db:seed"
-    },
-    "prisma": {
-        "seed": "esno src/seed.ts"
-    },
-    "dependencies": {
-        "@prisma/client": "^6.12.0"
-    },
-    "devDependencies": {
-        "@pkg-name/tsconfig": "workspace:*",
-        "@types/node": "^24.0.14",
-        "prisma": "^6.12.0"
-    }
+  "name": "@pkg-name/db",
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "pnpm run db:generate && tsdown",
+    "dev": "tsdown --watch --clean",
+    "clean": "rimraf node_modules dist",
+    "typecheck": "tsc --noEmit",
+    "db:safe": "node ../../scripts/db.mjs",
+    "db:seed": "pnpm exec prisma db seed",
+    "db:migrate:dev": "pnpm run db:safe && pnpm exec prisma migrate dev && pnpm run db:generate",
+    "db:migrate:prod": "pnpm exec prisma migrate deploy",
+    "db:generate": "pnpm exec prisma generate",
+    "db:push": "pnpm run db:safe && pnpm exec prisma db push --skip-generate",
+    "db:reset": "pnpm run db:safe && pnpm exec prisma migrate reset --skip-seed --skip-generate --force",
+    "db:full-reset": "pnpm run db:reset && pnpm run db:push && pnpm run db:generate && pnpm run db:seed"
+  },
+  "prisma": {
+    "seed": "esno src/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.12.0"
+  },
+  "devDependencies": {
+    "@pkg-name/tsconfig": "workspace:*",
+    "@types/node": "^24.0.14",
+    "prisma": "^6.12.0"
+  }
 }
