@@ -4,7 +4,7 @@ import { FetchUser, OauthUserInfo } from "../helpers/user-info";
 import { OauthCoreProvider } from "../core";
 import { OauthProvider } from "../providers";
 import { Cookie } from "../models";
-import { wrapAsync } from "@banjoanton/utils";
+import { to } from "@banjoanton/utils";
 import { ofetch } from "ofetch";
 import { createContextLogger } from "../../lib/context-logger";
 
@@ -16,21 +16,20 @@ if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
     logger.error("Missing GitHub client ID or secret");
 }
 
-const provider = new GitHub(env.GITHUB_CLIENT_ID || "", env.GITHUB_CLIENT_SECRET || "");
+const provider = new GitHub(env.GITHUB_CLIENT_ID || "", env.GITHUB_CLIENT_SECRET || "", null);
 
 const fetchUser: FetchUser = async (accessToken: string) => {
-    const [githubUserData, error] = await wrapAsync(
-        async () =>
-            await ofetch<OauthUserInfo>("https://api.github.com/user", {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            })
+    const [githubUserData, error] = await to(() =>
+        ofetch<OauthUserInfo>("https://api.github.com/user", {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        })
     );
 
     if (error) {
         logger.error({ error }, "Error fetching user");
-        return Result.error(error.message);
+        return Result.error("Error fetching user");
     }
 
     const parsed = OauthUserInfo.parse(githubUserData);
