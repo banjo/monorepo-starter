@@ -1,5 +1,5 @@
 import { isLocalDevelopment } from "@/utils/runtime";
-import { attemptAsync } from "@banjoanton/utils";
+import { attempt } from "@banjoanton/utils";
 import { AuthInfo, CoreResponse, Env } from "@pkg-name/common";
 
 const env = Env.client();
@@ -39,7 +39,7 @@ class AuthService {
 
         const authUrl = `${env.VITE_API_URL}/auth`;
 
-        const response = await attemptAsync<CoreResponse<AuthInfo>>(
+        const response = await attempt<CoreResponse<AuthInfo>>(
             async () =>
                 await fetch(authUrl, {
                     credentials: "include",
@@ -65,7 +65,6 @@ class AuthService {
     public signInWithGoogle() {
         window.location.href = `${env.VITE_API_URL}/login/google`;
     }
-
 
     public async signOut() {
         const signOutUrl = `${env.VITE_API_URL}/logout`;
