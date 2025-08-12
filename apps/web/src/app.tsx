@@ -3,7 +3,6 @@ import { GlobalLoadingProvider } from "@/providers/global-loading-provider";
 import { TrpcProvider } from "@/providers/trpc-provider";
 import { Root } from "@/routes/root";
 import { ErrorPage } from "@pkg-name/ui";
-import "@pkg-name/ui/src/tailwind.css";
 import { FC } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Toaster } from "react-hot-toast";

@@ -7,9 +7,9 @@ type Props = {
 };
 
 export const Loader = ({ children }: PropsWithChildren) => (
-    <div className="fixed left-0 top-0 z-50 flex h-full w-full flex-col items-center justify-center gap-4 backdrop-blur-sm">
+    <div className="fixed left-0 top-0 z-50 flex size-full flex-col items-center justify-center gap-4 backdrop-blur-sm">
         <div
-            className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+            className="inline-block size-12 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
             role="status"
         />
         <span>{children}</span>

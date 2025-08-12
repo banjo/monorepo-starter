@@ -40,10 +40,10 @@ export type IconType = FC<
 export type IconSize = "xs" | "sm" | "md" | "lg";
 
 export const iconSizeMapper: Record<IconSize, string> = {
-    xs: "h-4 w-4",
-    sm: "h-6 w-6",
-    md: "h-8 w-8",
-    lg: "h-10 w-10",
+    xs: "size-4",
+    sm: "size-6",
+    md: "size-8",
+    lg: "size-10",
 };
 
 export const Icons = {

@@ -1,7 +1,6 @@
 import baseConfig from "@pkg-name/tailwind-config";
 
-module.exports = {
+export default {
     ...baseConfig,
-    content: ["../../packages/ui/src/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
-    plugins: [],
+    darkMode: "class",
 };

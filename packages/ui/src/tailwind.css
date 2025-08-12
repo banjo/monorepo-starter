@@ -1,81 +1,102 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* UI design tokens och basregler (Tailwind v4, OKLCH) */
 
-@layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 47.4% 11.2%;
+:root {
+    /* OKLCH channels: L% C H */
+    --background: 100% 0 0;
+    --foreground: 24% 0.03 264;
 
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 97% 0.02 240;
+    --muted-foreground: 62% 0.05 250;
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 47.4% 11.2%;
+    --popover: 100% 0 0;
+    --popover-foreground: 24% 0.03 264;
 
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
+    --border: 92% 0.03 250;
+    --input: 92% 0.03 250;
 
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 47.4% 11.2%;
+    --card: 100% 0 0;
+    --card-foreground: 24% 0.03 264;
 
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
+    --primary: 24% 0.09 264;
+    --primary-foreground: 98% 0.01 240;
 
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 96% 0.03 240;
+    --secondary-foreground: 24% 0.03 264;
 
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 96% 0.03 240;
+    --accent-foreground: 24% 0.03 264;
 
-        --destructive: 0 100% 50%;
-        --destructive-foreground: 210 40% 98%;
+    --destructive: 62% 0.25 29;
+    --destructive-foreground: 98% 0.01 0;
 
-        --ring: 215 20.2% 65.1%;
+    --ring: 70% 0.04 250;
 
-        --radius: 0.5rem;
-    }
+    --radius: 0.5rem;
+}
 
-    .dark {
-        --background: 224 71% 4%;
-        --foreground: 213 31% 91%;
+.dark {
+    --background: 12% 0.03 264;
+    --foreground: 86% 0.06 250;
 
-        --muted: 223 47% 11%;
-        --muted-foreground: 215.4 16.3% 56.9%;
+    --muted: 19% 0.04 268;
+    --muted-foreground: 73% 0.05 250;
 
-        --accent: 216 34% 17%;
-        --accent-foreground: 210 40% 98%;
+    --accent: 24% 0.05 260;
+    --accent-foreground: 98% 0.01 0;
 
-        --popover: 224 71% 4%;
-        --popover-foreground: 215 20.2% 65.1%;
+    --popover: 12% 0.03 264;
+    --popover-foreground: 70% 0.04 250;
 
-        --border: 216 34% 17%;
-        --input: 216 34% 17%;
+    --border: 24% 0.05 260;
+    --input: 24% 0.05 260;
 
-        --card: 224 71% 4%;
-        --card-foreground: 213 31% 91%;
+    --card: 12% 0.03 264;
+    --card-foreground: 86% 0.06 250;
 
-        --primary: 210 40% 98%;
-        --primary-foreground: 222.2 47.4% 1.2%;
+    --primary: 98% 0.01 240;
+    --primary-foreground: 12% 0.03 264;
 
-        --secondary: 222.2 47.4% 11.2%;
-        --secondary-foreground: 210 40% 98%;
+    --secondary: 24% 0.04 264;
+    --secondary-foreground: 98% 0.01 0;
 
-        --destructive: 0 63% 31%;
-        --destructive-foreground: 210 40% 98%;
+    --destructive: 44% 0.12 29;
+    --destructive-foreground: 98% 0.01 0;
 
-        --ring: 216 34% 17%;
+    --ring: 24% 0.05 260;
 
-        --radius: 0.5rem;
-    }
+    --radius: 0.5rem;
+}
+
+@theme inline {
+    /* Expose computed OKLCH colors to Tailwind */
+    --color-background: oklch(var(--background));
+    --color-foreground: oklch(var(--foreground));
+    --color-muted: oklch(var(--muted));
+    --color-muted-foreground: oklch(var(--muted-foreground));
+    --color-popover: oklch(var(--popover));
+    --color-popover-foreground: oklch(var(--popover-foreground));
+    --color-border: oklch(var(--border));
+    --color-input: oklch(var(--input));
+    --color-card: oklch(var(--card));
+    --color-card-foreground: oklch(var(--card-foreground));
+    --color-primary: oklch(var(--primary));
+    --color-primary-foreground: oklch(var(--primary-foreground));
+    --color-secondary: oklch(var(--secondary));
+    --color-secondary-foreground: oklch(var(--secondary-foreground));
+    --color-accent: oklch(var(--accent));
+    --color-accent-foreground: oklch(var(--accent-foreground));
+    --color-destructive: oklch(var(--destructive));
+    --color-destructive-foreground: oklch(var(--destructive-foreground));
+    --color-ring: oklch(var(--ring));
 }
 
 @layer base {
     * {
-        @apply border-border;
+        border-color: var(--color-border);
     }
     body {
-        @apply bg-background text-foreground;
+        background-color: var(--color-background);
+        color: var(--color-foreground);
         font-feature-settings:
             "rlig" 1,
             "calt" 1;

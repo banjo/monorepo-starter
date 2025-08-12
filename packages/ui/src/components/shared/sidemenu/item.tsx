@@ -44,9 +44,9 @@ export const Item: FC<ItemProps> = ({
             `}
         >
             <div className="relative flex items-center gap-4 overflow-hidden">
-                <span className="h-6 w-6 ">
-                    {Icon && <Icon className="h-6 w-6" />}
-                    {image && <img src={image} className="h-6 w-6 max-w-none" />}
+                <span className="size-6 ">
+                    {Icon && <Icon className="size-6" />}
+                    {image && <img src={image} className="size-6 max-w-none" />}
                 </span>
                 <Tooltip tooltip={title}>
                     <span className="w-full truncate text-lg md:w-36 md:text-sm">{title}</span>

@@ -1,0 +1,6 @@
+@source ".";
+@source "../../../packages/ui/src";
+@config "../tailwind.config.js";
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "../../../packages/ui/src/tailwind.css";

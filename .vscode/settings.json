@@ -9,5 +9,24 @@
         "**/node_modules": true,
         "**/.turbo": true,
         "**/.build": true
-    }
+    },
+    // Tailwind v4 CSS-first directives are unknown to VS Code's CSS LS
+    "css.lint.unknownAtRules": "ignore",
+    "scss.lint.unknownAtRules": "ignore",
+    "postcssValidation.enabled": false,
+    // Add custom data so the CSS LS recognizes Tailwind v4 at-rules
+    "css.customData": [".vscode/css-custom-data.json"],
+    // Help Tailwind IntelliSense find classes inside cn()/cva()
+    "tailwindCSS.experimental.classRegex": [
+        ["cn\\(([^)]*)\\)", "([`'\"])(.*?)(?:\\u0001|\\u0002)\\1"],
+        ["cva\\(([^)]*)\\)", "([`'\"])(.*?)(?:\\u0001|\\u0002)\\1"]
+    ],
+    // Point at monorepo Tailwind config (single path expected)
+    "tailwindCSS.experimental.configFile": "apps/web/tailwind.config.js",
+    "tailwindCSS.includeLanguages": {
+        "plaintext": "html",
+        "typescript": "javascript",
+        "typescriptreact": "javascript"
+    },
+    "tailwindCSS.emmetCompletions": true
 }
