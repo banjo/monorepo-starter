@@ -1,9 +1,5 @@
-import {
-    generateCodeVerifier,
-    generateState,
-    OAuth2Provider,
-    OAuth2ProviderWithPKCE,
-} from "arctic";
+import { generateCodeVerifier, generateState } from "arctic";
+import { OAuth2Provider, OAuth2ProviderWithPKCE } from "./oauth-types";
 import { serializeCookie } from "oslo/cookie";
 import { Env } from "@pkg-name/common";
 import { Response } from "express";
@@ -36,7 +32,7 @@ export const login = async ({ provider, res, cookies, providerType, scopes }: Lo
     const state = generateState();
 
     if (providerType === "simple") {
-        const url = await provider.createAuthorizationURL(state);
+        const url = await provider.createAuthorizationURL(state, scopes ?? []);
         const cookie = cookies.find(c => c.type === "state");
 
         if (!cookie) {
@@ -58,12 +54,7 @@ export const login = async ({ provider, res, cookies, providerType, scopes }: Lo
     }
 
     const codeVerifier = generateCodeVerifier();
-    const url = await provider.createAuthorizationURL(
-        state,
-        codeVerifier,
-        // @ts-ignore - this is the current way to define scopes for Google
-        scopes ? { scopes } : undefined
-    );
+    const url = await provider.createAuthorizationURL(state, codeVerifier, scopes ? scopes : []);
 
     const stateCookie = cookies.find(c => c.type === "state");
     const codeVerifierCookie = cookies.find(c => c.type === "code_verifier");
@@ -80,6 +71,7 @@ export const login = async ({ provider, res, cookies, providerType, scopes }: Lo
         secure: env.NODE_ENV === "production",
         maxAge: MAX_COOKIE_AGE,
         path: "/",
+        sameSite: "lax",
     });
 
     const serializedCodeVerifierCookie = serializeCookie(codeVerifierCookie.name, codeVerifier, {
@@ -87,6 +79,7 @@ export const login = async ({ provider, res, cookies, providerType, scopes }: Lo
         secure: env.NODE_ENV === "production",
         maxAge: MAX_COOKIE_AGE,
         path: "/",
+        sameSite: "lax",
     });
 
     return HttpResponse.redirect({

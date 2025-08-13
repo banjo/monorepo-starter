@@ -1,4 +1,5 @@
-import { OAuth2Provider, OAuth2ProviderWithPKCE } from "arctic";
+import { OAuth2Provider, OAuth2ProviderWithPKCE } from "./oauth-types";
+
 import { parseCookies } from "oslo/cookie";
 import { FetchUser } from "./user-info";
 import { Env, Result } from "@pkg-name/common";
@@ -109,16 +110,17 @@ export const callback = async ({
             ? await getTokensFromSimpleProvider(req, cookies, provider)
             : await getTokensFromPKCEProvider(req, cookies, provider);
 
-    if (!tokensResult.success) {
+    if (!tokensResult.ok) {
         logger.error({ message: tokensResult.message }, "Failed to get tokens");
         return HttpResponse.unauthorized({ res, message: tokensResult.message });
     }
 
-    const tokens = tokensResult.data;
-    logger.trace("Fetching user data");
-    const oauthUserResult = await fetchUser(tokens.accessToken);
+    const accessToken = tokensResult.data.accessToken();
 
-    if (!oauthUserResult.success) {
+    logger.trace("Fetching user data");
+    const oauthUserResult = await fetchUser(accessToken);
+
+    if (!oauthUserResult.ok) {
         logger.error({ message: oauthUserResult.message }, "Failed to fetch user data");
         return HttpResponse.internalServerError({ res, message: oauthUserResult.message });
     }
@@ -126,29 +128,29 @@ export const callback = async ({
     const oauthUser = oauthUserResult.data;
     const userResult = await AuthRepository.getUserByEmail(oauthUser.email);
 
-    if (!userResult.success) {
-        logger.error({ message: userResult.message }, "Failed to get user by email");
+    if (!userResult.ok) {
+        logger.error({ message: userResult.error }, "Failed to get user by email");
         return HttpResponse.internalServerError({
             res,
             message: "Failed to get user by email",
         });
     }
 
-    const existingUser = userResult.data;
     const redirectUrl = env.CLIENT_URL;
     logger.trace({ redirectUrl }, "Setting redirect url");
 
-    if (existingUser) {
+    if (userResult.data) {
         logger.trace("User exists in database");
+        const existingUser = userResult.data;
 
         const currentOauthAccountResult = await AuthRepository.getOauthByProvider(
             oauthProvider,
             oauthUser.id.toString()
         );
 
-        if (!currentOauthAccountResult.success) {
+        if (!currentOauthAccountResult.ok) {
             logger.error(
-                { message: currentOauthAccountResult.message, provider: oauthProvider },
+                { message: currentOauthAccountResult.error, provider: oauthProvider },
                 "Failed to get oauth account"
             );
             return HttpResponse.internalServerError({
@@ -176,9 +178,9 @@ export const callback = async ({
             name: oauthUser.name,
         });
 
-        if (!addOauthResult.success) {
+        if (!addOauthResult.ok) {
             logger.error(
-                { message: addOauthResult.message, provider: oauthProvider },
+                { message: addOauthResult.error, provider: oauthProvider },
                 "Failed to add oauth account"
             );
             return HttpResponse.internalServerError({
@@ -205,8 +207,8 @@ export const callback = async ({
         avatarUrl: oauthUser.avatar_url,
     });
 
-    if (!userResponse.success) {
-        logger.error({ message: userResponse.message }, "Failed to create user");
+    if (!userResponse.ok) {
+        logger.error({ message: userResponse.error }, "Failed to create user");
         return HttpResponse.internalServerError({ res, message: "Failed to create user" });
     }
 

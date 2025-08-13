@@ -1,4 +1,4 @@
-import { ResultType } from "@banjoanton/utils";
+import { Result } from "@pkg-name/common";
 import { z } from "zod";
 
 export const OauthUserInfo = z.object({
@@ -10,4 +10,6 @@ export const OauthUserInfo = z.object({
 
 export type OauthUserInfo = z.infer<typeof OauthUserInfo>;
 
-export type FetchUser = (accessToken: string) => Promise<ResultType<OauthUserInfo>>;
+export type SimpleResult<T> = ReturnType<typeof Result.ok<T>> | ReturnType<typeof Result.error>;
+
+export type FetchUser = (accessToken: string) => Promise<SimpleResult<OauthUserInfo>>;

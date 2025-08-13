@@ -17,7 +17,7 @@ const createOauthUser = async (props: CreateOauthUserProps) => {
     const { provider, providerUserId, email, name, avatarUrl } = props;
     logger.info({ provider, providerUserId, email }, "Creating oauth user");
 
-    const [user, error] = await to(() =>
+    const [error, user] = await to(() =>
         prisma.user.create({
             data: {
                 email,
@@ -48,7 +48,7 @@ const createOauthUser = async (props: CreateOauthUserProps) => {
 const getOauthByProvider = async (provider: OauthProvider, providerUserId: string) => {
     logger.trace({ provider, providerUserId }, "Getting user by oauth provider");
 
-    const [oauth, error] = await to(() =>
+    const [error, oauth] = await to(() =>
         prisma.oauthAccount.findFirst({
             where: {
                 provider,
@@ -72,7 +72,7 @@ const getOauthByProvider = async (provider: OauthProvider, providerUserId: strin
 const getUserByEmail = async (email: string) => {
     logger.trace({ email }, "Getting user by email");
 
-    const [user, error] = await to(() =>
+    const [error, user] = await to(() =>
         prisma.user.findFirst({
             where: {
                 email,
@@ -100,7 +100,7 @@ const addOauthAccount = async (
 ) => {
     logger.info({ provider, providerUserId }, "Adding oauth account");
 
-    const [oauth, error] = await to(() =>
+    const [error, oauth] = await to(() =>
         prisma.oauthAccount.create({
             data: {
                 provider,

@@ -19,7 +19,7 @@ if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET) {
 const provider = new GitHub(env.GITHUB_CLIENT_ID || "", env.GITHUB_CLIENT_SECRET || "", null);
 
 const fetchUser: FetchUser = async (accessToken: string) => {
-    const [githubUserData, error] = await to(() =>
+    const [error, githubUserData] = await to(() =>
         ofetch<OauthUserInfo>("https://api.github.com/user", {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
@@ -27,7 +27,7 @@ const fetchUser: FetchUser = async (accessToken: string) => {
         })
     );
 
-    if (error) {
+    if (error || !githubUserData) {
         logger.error({ error }, "Error fetching user");
         return Result.error("Error fetching user");
     }

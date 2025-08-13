@@ -14,7 +14,7 @@ const CODE_VERIFIER_COOKIE_NAME = "google_code_verifier";
 
 const logger = createContextLogger("google-auth-provider");
 
-const scopes = ["profile", "email"];
+const scopes = ["profile", "email", "openid"];
 
 const env = Env.server();
 const provider = new Google(
@@ -27,33 +27,46 @@ const GoogleUserInfoSchema = z.object({
     sub: z.string(),
     name: z.string(),
     picture: z.string(),
-    email: z.string(),
+    email: z.string().email(),
     email_verified: z.boolean(),
 });
 
 type GoogleUserInfo = z.infer<typeof GoogleUserInfoSchema>;
 
-// TODO: fetch user
 const fetchUser: FetchUser = async accessToken => {
-    const [userResponse, fetchError] = await to(() =>
-        ofetch<GoogleUserInfo>("https://openidconnect.googleapis.com/v1/userinfo", {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
-        })
+    const tokenPreview = `${accessToken.slice(0, 6)}...(${accessToken.length})`;
+
+    const tryUserinfo = async (url: string) =>
+        await to(() =>
+            ofetch<GoogleUserInfo>(url, {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            })
+        );
+
+    let [error, userResponse] = await tryUserinfo(
+        "https://openidconnect.googleapis.com/v1/userinfo"
     );
 
-    if (fetchError || !userResponse) {
-        logger.error({ error: fetchError }, "Error fetching user");
+    if (error || !userResponse) {
+        logger.warn({ error, tokenPreview }, "OpenID userinfo failed, retrying on v3 endpoint");
+        [error, userResponse] = await tryUserinfo("https://www.googleapis.com/oauth2/v3/userinfo");
+    }
+
+    if (error || !userResponse) {
+        logger.error({ error, tokenPreview }, "Error fetching user");
         return Result.error("Error fetching user");
     }
 
     try {
         const googleUser = GoogleUserInfoSchema.parse(userResponse);
+        if (!googleUser.email_verified) {
+            logger.warn({ sub: googleUser.sub }, "Unverified Google email");
+            return Result.error("Email not verified");
+        }
 
         const user: OauthUserInfo = {
             name: googleUser.name,
-            id: Number.parseInt(googleUser.sub),
+            id: Number.parseInt(googleUser.sub, 10),
             email: googleUser.email,
             avatar_url: googleUser.picture,
         };
@@ -67,14 +80,8 @@ const fetchUser: FetchUser = async accessToken => {
 };
 
 const cookies: Cookie[] = [
-    {
-        name: STATE_COOKIE_NAME,
-        type: "state",
-    },
-    {
-        name: CODE_VERIFIER_COOKIE_NAME,
-        type: "code_verifier",
-    },
+    { name: STATE_COOKIE_NAME, type: "state" },
+    { name: CODE_VERIFIER_COOKIE_NAME, type: "code_verifier" },
 ];
 
 const { login, callback } = OauthCoreProvider.createOauthProviderWithPKCE({
