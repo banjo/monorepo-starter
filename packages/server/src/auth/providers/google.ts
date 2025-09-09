@@ -34,26 +34,14 @@ const GoogleUserInfoSchema = z.object({
 type GoogleUserInfo = z.infer<typeof GoogleUserInfoSchema>;
 
 const fetchUser: FetchUser = async accessToken => {
-    const tokenPreview = `${accessToken.slice(0, 6)}...(${accessToken.length})`;
-
-    const tryUserinfo = async (url: string) =>
-        await to(() =>
-            ofetch<GoogleUserInfo>(url, {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            })
-        );
-
-    let [error, userResponse] = await tryUserinfo(
-        "https://openidconnect.googleapis.com/v1/userinfo"
+    const [fetchError, userResponse] = await to(() =>
+        ofetch<GoogleUserInfo>("https://openidconnect.googleapis.com/v1/userinfo", {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        })
     );
 
-    if (error || !userResponse) {
-        logger.warn({ error, tokenPreview }, "OpenID userinfo failed, retrying on v3 endpoint");
-        [error, userResponse] = await tryUserinfo("https://www.googleapis.com/oauth2/v3/userinfo");
-    }
-
-    if (error || !userResponse) {
-        logger.error({ error, tokenPreview }, "Error fetching user");
+    if (fetchError || !userResponse) {
+        logger.error({ error: fetchError }, "Error fetching user");
         return Result.error("Error fetching user");
     }
 
